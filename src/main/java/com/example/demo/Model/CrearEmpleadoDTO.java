@@ -8,6 +8,10 @@ public class CrearEmpleadoDTO {
     private String usuario;
 	private String contrasena;
 
+    public CrearEmpleadoDTO() {
+        //TODO Auto-generated constructor stub
+    }
+
     public CrearEmpleadoDTO(String nombre, String apellido, String admin, String usuario, String contrasena) {
 		super();
 		this.nombre = nombre;
