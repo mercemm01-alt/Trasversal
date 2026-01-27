@@ -26,5 +26,8 @@ public class LoginEmpleadoDTO {
 		this.contrasena = contrasena;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "LoginEmpleadoDTO [usuario=" + usuario + ", contrasena=" + contrasena + "]";
+	}
 }

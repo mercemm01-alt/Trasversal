@@ -1,11 +1,13 @@
+package com.example.demo.Model;
 
-import java.io.Serializable;
 import java.util.Date;
+
+import com.example.demo.Entity.Estado;
 public class PedidoDTO {
 
 	private long idPedido;
-	private ClienteEntity cliente;
-	private ProductoEntity producto;
+	private long cliente;
+	private long producto;
 	private int cantidad;
 	private Date fechaInicio;
 	private Date fechaEntrega;
@@ -16,9 +18,8 @@ public class PedidoDTO {
 		
 	}
 
-	public PedidoDTO(long idPedido, ClienteEntity cliente, ProductoEntity producto, int cantidad, Date fechaInicio,
-			Date fechaEntrega, Estado estado, double precioFinal) {
-		super();
+	public PedidoDTO(long idPedido, long cliente, long producto, int cantidad, Date fechaInicio, Date fechaEntrega,
+			Estado estado, double precioFinal) {
 		this.idPedido = idPedido;
 		this.cliente = cliente;
 		this.producto = producto;
@@ -29,6 +30,8 @@ public class PedidoDTO {
 		this.precioFinal = precioFinal;
 	}
 
+
+
 	public long getIdPedido() {
 		return idPedido;
 	}
@@ -37,19 +40,19 @@ public class PedidoDTO {
 		this.idPedido = idPedido;
 	}
 
-	public ClienteEntity getCliente() {
+	public long getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(ClienteEntity cliente) {
+	public void setCliente(long cliente) {
 		this.cliente = cliente;
 	}
 
-	public ProductoEntity getProducto() {
+	public long getProducto() {
 		return producto;
 	}
 
-	public void setProducto(ProductoEntity producto) {
+	public void setProducto(long producto) {
 		this.producto = producto;
 	}
 

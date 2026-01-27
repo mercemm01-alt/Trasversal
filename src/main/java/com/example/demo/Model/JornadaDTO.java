@@ -6,14 +6,16 @@ import java.sql.Time;
 public class JornadaDTO {
 	
 	private Long idJornada;
+	private Long idEmpleado;
 	private Date fecha;
 	private Time horaInicio;
 	private Time horaSalida;
 	private float horasDia;
 	
-	public JornadaDTO(Long idJornada, Date fecha, Time horaInicio, Time horaSalida) {
+	public JornadaDTO(Long idJornada, Long idEmpleado, Date fecha, Time horaInicio, Time horaSalida) {
 		super();
 		this.idJornada = idJornada;
+		this.idEmpleado = idEmpleado;
 		this.fecha = fecha;
 		this.horaInicio = horaInicio;
 		this.horaSalida = horaSalida;
@@ -25,6 +27,14 @@ public class JornadaDTO {
 	public void setIdJornada(Long idJornada) {
 		this.idJornada = idJornada;
 	}
+
+	public Long getIdEmpleado() {
+		return idEmpleado;
+	}
+	public void setIdEmpleado(Long idEmpleado) {
+		this.idEmpleado = idEmpleado;
+	}
+
 	public Date getFecha() {
 		return fecha;
 	}
@@ -49,4 +59,10 @@ public class JornadaDTO {
 	public void setHorasDia(float horasDia) {
 		this.horasDia = horasDia;
 	}
+	@Override
+	public String toString() {
+		return "JornadaDTO [idJornada=" + idJornada + ", idEmpleado=" + idEmpleado + ", fecha=" + fecha
+				+ ", horaInicio=" + horaInicio + ", horaSalida=" + horaSalida + ", horasDia=" + horasDia + "]";
+	}
+	
 }

@@ -33,5 +33,10 @@ public class DatosEmpleadoDTO {
 	public void setAdmin(String admin) {
 		this.admin = admin;
 	}
+
+	@Override
+	public String toString() {
+		return "DatosEmpleadoDTO [nombre=" + nombre + ", apellido=" + apellido + ", admin=" + admin + "]";
+	}
 	
 }

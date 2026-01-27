@@ -62,5 +62,11 @@ public class CrearEmpleadoDTO {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
+
+    @Override
+    public String toString() {
+        return "CrearEmpleadoDTO [nombre=" + nombre + ", apellido=" + apellido + ", admin=" + admin + ", usuario="
+                + usuario + ", contrasena=" + contrasena + "]";
+    }
     
 }
