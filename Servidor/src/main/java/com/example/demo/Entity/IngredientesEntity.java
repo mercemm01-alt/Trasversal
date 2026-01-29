@@ -30,7 +30,7 @@ public class IngredientesEntity implements Serializable{
 	private int cantidad;
 	
 	@Column(name = "ALERGENOS")
-	private String alergenos;
+	private Alergenos alergenos;
 	
 	@OneToMany(mappedBy = "ingredientesProducto")
 	private Set<IngredienteProductoEntity> ingredienteProducto = new HashSet<IngredienteProductoEntity>();
@@ -61,11 +61,11 @@ public class IngredientesEntity implements Serializable{
 		this.cantidad = cantidad;
 	}
 
-	public String getAlergenos() {
+	public Alergenos getAlergenos() {
 		return alergenos;
 	}
 
-	public void setAlergenos(String alergenos) {
+	public void setAlergenos(Alergenos alergenos) {
 		this.alergenos = alergenos;
 	}
 

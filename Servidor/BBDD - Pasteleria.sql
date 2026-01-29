@@ -42,7 +42,23 @@ USE PASTELERIA;
 		ID_INGREDIENTE BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID DEL INGREDIENTE',
         NOMBRE VARCHAR(20) NOT NULL COMMENT 'NOMBRE DEL INGREDIENTE',
         CANTIDAD INT NOT NULL COMMENT 'STOCK DE CADA INGREDIENTE',
-        ALERGENOS VARCHAR(75) NULL COMMENT 'ALERGENOS DE CADA UNO DE LOS INGREDIENTES',
+        ALTER TABLE productos
+        ALERGENOS ENUM (
+            'GLUTEN',
+            'CRUSTACEOS',
+            'HUEVOS',
+            'PESCADO',
+            'CACAHUETES',
+            'SOJA',
+            'LECHE',
+            'FRUTOS_CASCARA',
+            'APIO',
+            'MOSTAZA',
+            'SESAMO',
+            'SULFITOS',
+            'ALTRAMUCES',
+            'MOLUSCOS'
+        ) NOT NULL,
         CONSTRAINT PRIMARY KEY (ID_INGREDIENTE)
     );
     
