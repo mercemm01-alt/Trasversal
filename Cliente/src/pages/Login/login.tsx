@@ -28,6 +28,10 @@ function Login() {
             return mensaje.json();
         })
         .then(user => {
+
+            localStorage.setItem("admin", user.administrador);
+            localStorage.setItem("usuario", user.usuario);
+
             if (user.administrador === "S") {
             rutas("/admin");
             } else {
