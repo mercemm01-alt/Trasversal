@@ -1,6 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 
-function AdminLayout() {
+function AdminPanel() {
     return (
         <main>
         <div className="menu-admin">
@@ -17,5 +17,5 @@ function AdminLayout() {
     );
 }
 
-export default AdminLayout;
+export default AdminPanel;
 
