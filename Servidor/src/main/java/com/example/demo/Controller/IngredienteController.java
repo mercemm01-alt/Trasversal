@@ -13,7 +13,7 @@ import com.example.demo.Repository.IngredienteRepository;
 
 @RestController
 @RequestMapping("/api/ingredientes")
-@CrossOrigin(origins = "*")
+
 public class IngredienteController {
 
     @Autowired

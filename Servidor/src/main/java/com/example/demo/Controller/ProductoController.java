@@ -14,7 +14,7 @@ import com.example.demo.Repository.ProductoRepository;
 
 @RestController
 @RequestMapping("/api/productos")
-@CrossOrigin(origins = "*")
+
 public class ProductoController {
 
     @Autowired
