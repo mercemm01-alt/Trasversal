@@ -38,7 +38,7 @@ public class JornadaEntity implements Serializable{
 	@Column(name = "HORAS_DIA")
 	private float horasDia;
 	
-	
+	//Empleado que ficha
 	@ManyToOne
 	@JoinColumn(name = "EMPLEADO", nullable = false)
 	private EmpleadoEntity empleado;

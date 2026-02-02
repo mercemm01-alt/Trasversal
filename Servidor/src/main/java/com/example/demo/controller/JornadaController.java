@@ -13,7 +13,7 @@ public class JornadaController {
 	@Autowired
 	JornadaServicio jornadaServicio;
 	
-	//REGISTRA CON SAVE LA JORNADA (SIN HORA DE SALIDA) EN BASE AL EMPLEADO ELEGIDO POR SU USUARIO
+	//REGISTRA CON SAVE LA JORNADA (SIN HORA DE SALIDA) EN BASE AL EMPLEADO ELEGIDO POR SU USUARIO.
 	@GetMapping("/FichaEntrada")
 	public void fichaEntrada(Model model) {
 		jornadaServicio.anadirJornada("eclipse");

@@ -48,7 +48,7 @@ public class JornadaServicioImplementacion  implements JornadaServicio{
 		
 		
 	}
-
+//.
 	@Override
 	public List<JornadaEntity> listJornadas() {
 		List<JornadaEntity> jornadas;

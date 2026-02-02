@@ -14,7 +14,7 @@ public class EmpleadoController {
 	@Autowired
 	private EmpleadoServicio empleadoServicio;
 	
-	//PRUEBA DE CONSULTA EN / PARA QUE SE EJECUTE SI O SI (SIN WEB, EN CONSOLA)
+	//PRUEBA DE CONSULTA EN / PARA QUE SE EJECUTE SI O SI (SIN WEB, EN CONSOLA).
 	@GetMapping("/")
 	public void getLoginPage(Model model) {
 		empleadoServicio.loginEmpleado("spring", "tool");

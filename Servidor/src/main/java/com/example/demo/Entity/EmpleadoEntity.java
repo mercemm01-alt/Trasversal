@@ -32,6 +32,7 @@ public class EmpleadoEntity implements Serializable{
 	@Column(name = "ADMINISTRADOR")
 	private String admin;
 	
+	//Mapeado por empleado
 	@OneToMany(mappedBy = "empleado")
 	private Set<JornadaEntity> jornada = new HashSet<JornadaEntity>();
 	
