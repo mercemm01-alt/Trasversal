@@ -50,7 +50,7 @@ function NuevoProducto() {
         );
         }
 
-        fetch("http://localhost:8080/api/productos", {
+        fetch("/api/productos", {
         method: "POST",
         body: formData
         })

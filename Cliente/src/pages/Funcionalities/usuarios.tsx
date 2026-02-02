@@ -20,7 +20,7 @@ function AdministrarUsuarios() {
     const [admin, setAdmin] = useState(false);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/empleados")
+        fetch("/api/empleados")
         .then(res => {
             if (!res.ok) throw new Error();
             return res.json();
@@ -32,7 +32,7 @@ function AdministrarUsuarios() {
     const crearEmpleado = (e: React.FormEvent) => {
         e.preventDefault();
 
-        fetch("http://localhost:8080/api/empleados", {
+        fetch("/api/empleados", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -68,7 +68,7 @@ function AdministrarUsuarios() {
     };
 
     const eliminarEmpleado = (usuario: string) => {
-        fetch(`http://localhost:8080/api/empleados/${usuario}`, {
+        fetch(`/api/empleados/${usuario}`, {
         method: "DELETE"
         })
         .then(res => {

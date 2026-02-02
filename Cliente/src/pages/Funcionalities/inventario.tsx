@@ -12,7 +12,7 @@ function Inventario() {
     const [error, setError] = useState<string>("");
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/ingredientes")
+        fetch("/api/ingredientes")
         .then(res => {
             if (!res.ok) {
             throw new Error("Error al cargar el inventario");
@@ -28,7 +28,7 @@ function Inventario() {
     }, []);
 
     const aumentarCantidad = (id: number) => {
-        fetch(`http://localhost:8080/api/ingredientes/${id}/sumar`, {
+        fetch(`/api/ingredientes/${id}/sumar`, {
         method: "PUT"
         })
         .then(res => {
@@ -48,7 +48,7 @@ function Inventario() {
     };
 
     const disminuirCantidad = (id: number) => {
-        fetch(`http://localhost:8080/api/ingredientes/${id}/restar`, {
+        fetch(`/api/ingredientes/${id}/restar`, {
         method: "PUT"
         })
         .then(res => {

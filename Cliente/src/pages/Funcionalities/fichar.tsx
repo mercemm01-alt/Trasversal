@@ -21,7 +21,7 @@ function Fichar() {
 
         if (!empleado) return;
 
-        fetch(`http://localhost:8080/api/jornadas/hoy/${empleado}`)
+        fetch(`/api/jornadas/hoy/${empleado}`)
         .then(res => {
             if (!res.ok) throw new Error();
             return res.json();
@@ -41,7 +41,7 @@ function Fichar() {
         const ahora = new Date().toLocaleTimeString();
         setInicioActual(ahora);
 
-        fetch("http://localhost:8080/api/jornadas/inicio", {
+        fetch("/api/jornadas/inicio", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -64,7 +64,7 @@ function Fichar() {
 
         const ahora = new Date().toLocaleTimeString();
 
-        fetch("http://localhost:8080/api/jornadas/fin", {
+        fetch("/api/jornadas/fin", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

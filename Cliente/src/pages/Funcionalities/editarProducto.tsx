@@ -22,7 +22,7 @@ function EditarProductos() {
     const admin = localStorage.getItem("admin");
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/productos")
+        fetch("/api/productos")
         .then(res => res.json())
         .then(data => setProductos(data))
         .catch(() => setError("No se pudieron cargar los productos"));
@@ -50,7 +50,7 @@ function EditarProductos() {
         );
         }
 
-        fetch(`http://localhost:8080/api/productos/${producto.id}`, {
+        fetch(`/api/productos/${producto.id}`, {
         method: "PUT",
         body: formData
         })
@@ -152,7 +152,7 @@ function EditarProductos() {
                 {/* DERECHA */}
                 <div className="imagen-producto">
                 <img
-                    src={`http://localhost:8080/img/${p.imagen}`}
+                    src={`/img/${p.imagen}`}
                     alt={p.nombre}
                 />
 
