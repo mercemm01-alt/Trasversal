@@ -3,6 +3,8 @@ package com.example.demo.Entity;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,21 +27,21 @@ public class JornadaEntity implements Serializable{
 	private Long idJornada;
 	
 	@Column(name = "FECHA")
-	private Date fecha;
+	private LocalDate fecha;
 	
 	@Column(name = "HORA_INICIO")
-	private Time horaInicio;
+	private LocalTime horaInicio;
 	
 	@Column(name = "HORA_SALIDA")
-	private Time horaSalida;
+	private LocalTime horaSalida;
 	
 	@Column(name = "HORAS_DIA")
 	private float horasDia;
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "ID_EMPLEADO", nullable = false)
-	private EmpleadoEntity jornada;
+	@JoinColumn(name = "EMPLEADO", nullable = false)
+	private EmpleadoEntity empleado;
 	
 	// GETTERS & SETTERS
 
@@ -54,32 +56,32 @@ public class JornadaEntity implements Serializable{
 	}
 
 
-	public Date getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
 
 
-	public Time getHoraInicio() {
+	public LocalTime getHoraInicio() {
 		return horaInicio;
 	}
 
 
-	public void setHoraInicio(Time horaInicio) {
+	public void setHoraInicio(LocalTime horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 
 
-	public Time getHoraSalida() {
+	public LocalTime getHoraSalida() {
 		return horaSalida;
 	}
 
 
-	public void setHoraSalida(Time horaSalida) {
+	public void setHoraSalida(LocalTime horaSalida) {
 		this.horaSalida = horaSalida;
 	}
 
@@ -94,13 +96,25 @@ public class JornadaEntity implements Serializable{
 	}
 
 
-	public EmpleadoEntity getJornada() {
-		return jornada;
+	public EmpleadoEntity getEmpleado() {
+		return empleado;
 	}
 
 
-	public void setJornada(EmpleadoEntity jornada) {
-		this.jornada = jornada;
+	public void setEmpleado(EmpleadoEntity jornada) {
+		this.empleado = jornada;
 	}
+
+
+	@Override
+	public String toString() {
+	    return "JornadaEntity [idJornada=" + idJornada + ", fecha=" + fecha 
+	        + ", horaInicio=" + horaInicio + ", horaSalida=" + horaSalida 
+	        + ", horasDia=" + horasDia 
+	        + ", empleado=" + (empleado != null ? empleado.getUsuario() : null) + "]";
+	}
+
+	
+	
 	
 }

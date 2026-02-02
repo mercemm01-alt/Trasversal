@@ -10,6 +10,8 @@ import com.example.demo.Entity.EmpleadoEntity;
 
 @Repository
 public interface EmpleadoRepository  extends JpaRepository<EmpleadoEntity, String>{
-	
+
+	@Query("SELECT e FROM EmpleadoEntity e WHERE e.usuario = :usuario AND e.contrasena =:contrasena ")
+    public EmpleadoEntity findByUsuarioyContrasena(@Param("usuario") String usuario, @Param("contrasena") String contrasena);
 
 }

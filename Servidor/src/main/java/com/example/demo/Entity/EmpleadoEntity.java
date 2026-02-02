@@ -23,16 +23,16 @@ public class EmpleadoEntity implements Serializable{
 	@Column(name = "NOMBRE")
 	private String nombre;
 	
-	@Column(name = "APELLIDO")
+	@Column(name = "APELLIDOS")
 	private String apellido;
 	
-	@Column(name = "CONTRASEÑA")
+	@Column(name = "CONTRASENA")
 	private String contrasena;
 	
 	@Column(name = "ADMINISTRADOR")
 	private String admin;
 	
-	@OneToMany(mappedBy = "jornada")
+	@OneToMany(mappedBy = "empleado")
 	private Set<JornadaEntity> jornada = new HashSet<JornadaEntity>();
 	
 	// GETTERS & SETTERS
@@ -84,5 +84,13 @@ public class EmpleadoEntity implements Serializable{
 	public void setJornada(Set<JornadaEntity> jornada) {
 		this.jornada = jornada;
 	}
+
+	@Override
+	public String toString() {
+		return "EmpleadoEntity [usuario=" + usuario + ", nombre=" + nombre + ", apellido=" + apellido + ", contrasena="
+				+ contrasena + ", admin=" + admin + ", jornada=" + jornada + "]";
+	}
+
+	
 	
 }
