@@ -1,7 +1,6 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
-import Panaderia from "./pages/Cliente/panaderia";
-import Pasteleria from "./pages/Cliente/pasteleria";
+import ListarProductos from "./pages/Cliente/listaProductos";
 
 import Login from "./pages/Login/login";
 
@@ -22,8 +21,8 @@ function App() {
     <Header />
     <Routes>
       {/* Clientes */}
-      <Route path="/pasteleria" element={<Pasteleria />}></Route>
-      <Route path="/panaderia" element={<Panaderia />}></Route>
+      <Route path="/pasteleria" element={<ListarProductos url="http://localhost:8080/api/productos/pasteleria"/>}></Route> {/* Pasteleria */}
+      <Route path="/panaderia" element={<ListarProductos url="http://localhost:8080/api/productos/panaderia"/>}></Route> {/* Panaderia */}
       
       {/* Login */}
       <Route path="/login" element={<Login />} />
