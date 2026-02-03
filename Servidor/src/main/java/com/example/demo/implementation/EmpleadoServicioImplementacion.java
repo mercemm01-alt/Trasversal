@@ -50,7 +50,7 @@ public class EmpleadoServicioImplementacion implements EmpleadoServicio{
 	}
 
 	@Override
-	public void anadirEmpleado(String usuario, String contrasena, String nombre, String apellidos, String admin) {
+	public EmpleadoEntity anadirEmpleado(String usuario, String contrasena, String nombre, String apellidos, String admin) {
 		EmpleadoEntity empleado = new EmpleadoEntity();
 		empleado.setNombre(nombre);
 		empleado.setApellido(apellidos);
@@ -59,7 +59,7 @@ public class EmpleadoServicioImplementacion implements EmpleadoServicio{
 		empleado.setAdmin(admin);
 		
 		repo.save(empleado);
-//		return empleado;
+		return empleado;
 	}
 
 	@Override

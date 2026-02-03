@@ -14,48 +14,45 @@ import com.example.demo.Repository.JornadaRepository;
 import com.example.demo.services.JornadaServicio;
 
 @Service
-public class JornadaServicioImplementacion  implements JornadaServicio{
+public class JornadaServicioImplementacion implements JornadaServicio {
 
-	@Autowired
-	JornadaRepository repo;
-	
-	@Autowired
-	EmpleadoRepository emplerepo;
-	
-	@Override
-	public void anadirJornada(String empleadousu) {
-		LocalDate fechaHoy = LocalDate.now();      
+    @Autowired
+    private JornadaRepository repo;
+
+    @Autowired
+    private EmpleadoRepository emplerepo;
+
+    @Override
+    public JornadaEntity anadirJornada(String empleadousu) {
+
+        LocalDate fechaHoy = LocalDate.now();
         LocalTime horaInicio = LocalTime.now();
-        
+
+        EmpleadoEntity empleado = emplerepo.findById(empleadousu)
+                .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+
         JornadaEntity jornada = new JornadaEntity();
-        EmpleadoEntity empleado = emplerepo.findById(empleadousu).orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
-        
         jornada.setFecha(fechaHoy);
         jornada.setHoraInicio(horaInicio);
         jornada.setEmpleado(empleado);
-        jornada.setEmpleado(empleado);
-        
-        repo.save(jornada);
-		
-	}
 
-	@Override
-	public void finalizarJornada(long id) {
-		JornadaEntity jornada = repo.findById(id).orElseThrow(() -> new RuntimeException("Jornada no encontrada"));
-		LocalTime horaSalida = LocalTime.now();
-		jornada.setHoraSalida(horaSalida);
-		repo.save(jornada);
-		
-		
-	}
-//.
-	@Override
-	public List<JornadaEntity> listJornadas() {
-		List<JornadaEntity> jornadas;
-		jornadas = repo.findAll();
-		
-		System.out.println(jornadas);
-		return jornadas;
-	}
+        return repo.save(jornada); 
+    }
 
+    @Override
+    public JornadaEntity finalizarJornada(long id) {
+
+        JornadaEntity jornada = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Jornada no encontrada"));
+
+        LocalTime horaSalida = LocalTime.now();
+        jornada.setHoraSalida(horaSalida);
+
+        return repo.save(jornada);
+    }
+
+    @Override
+    public List<JornadaEntity> listJornadas() {
+        return repo.findAll();
+    }
 }
