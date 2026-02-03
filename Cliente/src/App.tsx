@@ -14,6 +14,7 @@ import Usuarios from "./pages/Funcionalities/usuarios";
 
 import './App.css'
 import RutasSeguras from "./componentes/Rutas/rutas";
+import Encargos from "./pages/Cliente/encargos";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       {/* Clientes */}
       <Route path="/pasteleria" element={<ListarProductos url="http://localhost:8080/api/productos/pasteleria"/>}></Route> {/* Pasteleria */}
       <Route path="/panaderia" element={<ListarProductos url="http://localhost:8080/api/productos/panaderia"/>}></Route> {/* Panaderia */}
+      <Route path="/encargos" element={<Encargos/>}></Route>
       
       {/* Login */}
       <Route path="/login" element={<Login />} />

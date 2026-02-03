@@ -86,7 +86,7 @@ function Header(){
                         <Link className="link-nav" to="/">INICIO</Link>
                         <Link className="link-nav" to="/pasteleria">PASTELERÍA</Link>
                         <Link className="link-nav" to="/panaderia">PANADERÍA</Link>
-                        <Link className="link-nav" to="/sobreNosotros">ENCARGOS</Link>
+                        <Link className="link-nav" to="/encargos">ENCARGOS</Link>
                     </div>
                 </div>
             </nav>
