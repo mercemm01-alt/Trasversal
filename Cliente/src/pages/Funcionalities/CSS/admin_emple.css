@@ -1,0 +1,25 @@
+.panel {
+    padding: 1.5rem;
+}
+
+.menu {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.menu a {
+    text-decoration: none;
+    font-weight: 500;
+    color: black;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+}
+
+.contenido {
+    background-color: white;
+    padding: 1rem;
+    min-height: 300px;
+}
