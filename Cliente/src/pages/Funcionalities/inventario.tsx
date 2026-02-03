@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface Ingrediente {
     id: number;         
@@ -75,7 +76,9 @@ function Inventario() {
 
         {error && <p className="error">{error}</p>}
 
-        <button>Añadir ingrediente</button>
+        <Link to="nuevoIngrediente" className="crear-ingrediente">
+                Nuevo Ingrediente
+            </Link>
 
         <table>
             <thead>

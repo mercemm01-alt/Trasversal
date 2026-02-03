@@ -1,82 +1,77 @@
-:root{
-    --cl-barraSuperior: #A8565C;
-}
-
-*{
+* {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box
 }
 
-nav{
-    position: relative;
-}
-
-.info {   
+.info {
     display: flex;
     align-items: center;
-    margin-left: 1.5rem;
-    gap: 2rem;
-    
+    padding: 0.5rem 1.5rem;
+    background-color: #A8565C;
+    color: white;
 }
 
-.redes{
+/* IZQUIERDA */
+.contacto {
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* CENTRO */
+.redes {
+    display: flex;
+    gap: 1rem;
+    margin: 0 auto; /* 🔥 esto las centra */
+}
+
+.redes a {
+    color: white;
     display: flex;
     align-items: center;
-    margin-left: auto;
-    margin-right: 1.5rem;
 }
 
-.menu{
+/* DERECHA */
+.usuario {
+    display: flex;
+    align-items: center;
+}
+
+.logeado {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.logout {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+
+/* Menú principal */
+.menu {
     display: flex;
     align-items: center;
     background-color: rgb(126, 178, 251);
+    padding: 1rem 1.5rem;
 }
 
-.menu img{
-    margin-top: 1rem;
-    margin-left: 1.5rem;
-    margin-bottom: 0.8rem;
-
-    height: auto;
+.menu img {
     width: 100px;
 }
 
-.links{
+/* Links */
+.links {
     display: flex;
     align-items: center;
+    gap: 1rem;
     margin-left: auto;
-    gap: 0.8rem;
-    padding-right: 1.5rem;
 }
 
-.link-nav{
-    position: relative;
+.link-nav {
     text-decoration: none;
     color: black;
     font-weight: 500;
     font-size: 1.1rem;
 }
-
-.link-nav::after{
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -3px;
-    width: 0;
-    height: 2px;
-    background-color: black;
-    transition: width 0.3s ease;
-}
-
-.link-nav:hover::after {
-    width: 100%;
-}
-
-
-
-
-
-
-
-

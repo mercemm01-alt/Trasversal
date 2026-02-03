@@ -11,6 +11,8 @@ import Fichar from "./pages/Funcionalities/fichar";
 import EditarProductos from "./pages/Funcionalities/editarProducto";
 import Inventario from "./pages/Funcionalities/inventario";
 import Usuarios from "./pages/Funcionalities/usuarios";
+import NuevoProducto from "./pages/Funcionalities/nuevoProducto";
+import NuevoIngrediente from "./pages/Funcionalities/nuevoIngrediente";
 
 import './App.css'
 import RutasSeguras from "./componentes/Rutas/rutas";
@@ -34,7 +36,9 @@ function App() {
         {<RutasSeguras soloAdmin> <AdminPanel/> </RutasSeguras>}>
           <Route path="fichar" element={<Fichar />} />
           <Route path="inventario" element={<Inventario />} />
+          <Route path="inventario/nuevoIngrediente" element={<NuevoIngrediente/>}></Route>
           <Route path="editar" element={<EditarProductos />} />
+          <Route path="editar/nuevoProducto" element={<NuevoProducto/>}></Route>
           <Route path="usuarios" element={<Usuarios />} />
       </Route>
       
@@ -42,7 +46,9 @@ function App() {
         {<RutasSeguras> <EmplePanel/> </RutasSeguras>}>
           <Route path="fichar" element={<Fichar />} />
           <Route path="inventario" element={<Inventario />} />
+          <Route path="inventario/nuevoIngrediente" element={<NuevoIngrediente/>}></Route>
           <Route path="editar" element={<EditarProductos />} />
+          <Route path="editar/nuevoProducto" element={<NuevoProducto/>}></Route>
       </Route>
 
     </Routes>

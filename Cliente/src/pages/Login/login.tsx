@@ -11,7 +11,24 @@ function Login() {
     const envio = (e: React.FormEvent) => {
         e.preventDefault();
 
-        fetch("http://localhost:8080/api/login", {
+         //Prueba ELIMINAR
+        if (usuario === "admin" && contrasena === "admin") {
+        localStorage.setItem("admin", "S");
+        localStorage.setItem("usuario", "admin");
+        rutas("/admin");
+        return;
+    }
+
+    if (usuario === "emple" && contrasena === "emple") {
+        localStorage.setItem("admin", "N");
+        localStorage.setItem("usuario", "emple");
+        rutas("/empleado");
+        return;
+    }
+
+    //ELIMINAR LO DE ARRIBA
+
+        fetch("/api/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -35,7 +52,7 @@ function Login() {
             if (user.administrador === "S") {
             rutas("/admin");
             } else {
-            rutas("/empleado");
+            rutas("/emple");
             }
         })
         .catch(error => {
