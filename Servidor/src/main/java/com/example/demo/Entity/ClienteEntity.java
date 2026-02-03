@@ -37,6 +37,7 @@ public class ClienteEntity implements Serializable{
 	private int numTlf;
 	
 	@OneToOne(mappedBy = "cliente")
+	@com.fasterxml.jackson.annotation.JsonIgnore
 	private Set<PedidoEntity> pedidos = new HashSet<PedidoEntity>();
 	
 	// GETTERS & SETTERS

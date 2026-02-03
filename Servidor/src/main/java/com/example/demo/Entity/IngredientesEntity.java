@@ -33,6 +33,7 @@ public class IngredientesEntity implements Serializable{
 	private Alergenos alergenos;
 	
 	@OneToMany(mappedBy = "ingredientesProducto")
+	@com.fasterxml.jackson.annotation.JsonIgnore
 	private Set<IngredienteProductoEntity> ingredienteProducto = new HashSet<IngredienteProductoEntity>();
 	
 	// GETTERS & SETTERS

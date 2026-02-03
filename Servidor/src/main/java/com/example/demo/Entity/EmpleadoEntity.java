@@ -34,6 +34,7 @@ public class EmpleadoEntity implements Serializable{
 	
 	//Mapeado por empleado
 	@OneToMany(mappedBy = "empleado")
+	@com.fasterxml.jackson.annotation.JsonIgnore
 	private Set<JornadaEntity> jornada = new HashSet<JornadaEntity>();
 	
 	// GETTERS & SETTERS

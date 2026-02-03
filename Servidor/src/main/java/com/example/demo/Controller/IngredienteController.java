@@ -1,80 +1,42 @@
 package com.example.demo.Controller;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.DTO.IngredienteDTO;
-import com.example.demo.Entity.IngredientesEntity;
-import com.example.demo.Repository.IngredienteRepository;
+import com.example.demo.services.IngredienteServicio;
 
 @RestController
 @RequestMapping("/api/ingredientes")
-
+@CrossOrigin(origins = "*")
 public class IngredienteController {
 
     @Autowired
-    private IngredienteRepository ingredienteRepository;
+    private IngredienteServicio ingredienteServicio;
 
-    // LISTAR
     @GetMapping
     public List<IngredienteDTO> verIngredientes() {
-        List<IngredientesEntity> lista = ingredienteRepository.findAll();
-        
-        return lista.stream().map(i -> new IngredienteDTO(
-            i.getIdIngredientes().intValue(), // Long a int
-            i.getNombre(),
-            i.getCantidad(),
-            i.getAlergenos()
-        )).collect(Collectors.toList());
+        return ingredienteServicio.obtenerTodos();
     }
-
-    // GUARDAR
+    //GUARDAR 
     @PostMapping("/guardar")
-    public ResponseEntity<?> guardarIngrediente(@RequestBody IngredienteDTO dto) {
-        
-        if(dto.getCantidad() < 0) {
-            return ResponseEntity.badRequest().body("Error: El stock no puede ser negativo.");
-        }
-
-        IngredientesEntity entidad = new IngredientesEntity();
-        entidad.setNombre(dto.getNombre());
-        entidad.setCantidad(dto.getCantidad());
-        entidad.setAlergenos(dto.getAlergenos());
-        
-        IngredientesEntity guardado = ingredienteRepository.save(entidad);
-        
-        dto.setIdIngrediente(guardado.getIdIngredientes().intValue());
-        return ResponseEntity.ok(dto);
+    public ResponseEntity<?> guardar(@RequestBody IngredienteDTO dto) {
+        if(dto.getCantidad() < 0) return ResponseEntity.badRequest().body("Stock negativo");
+        return ResponseEntity.ok(ingredienteServicio.guardarIngrediente(dto));
     }
-
-    // ACTUALIZAR - ID AHORA ES LONG
+    //ACTUALIZAR
     @PutMapping("/actualizar/{id}")
-    public ResponseEntity<?> actualizarStock(@PathVariable Long id, @RequestBody IngredienteDTO dto) {
-        
-        IngredientesEntity existente = ingredienteRepository.findById(id).orElse(null);
-        
-        if(existente != null) {
-            existente.setNombre(dto.getNombre());
-            existente.setCantidad(dto.getCantidad());
-            existente.setAlergenos(dto.getAlergenos());
-            
-            ingredienteRepository.save(existente);
-            return ResponseEntity.ok("Stock actualizado.");
-        } 
-        return ResponseEntity.status(404).body("Error: Ingrediente no encontrado.");
+    public ResponseEntity<?> actualizar(@PathVariable Long id, @RequestParam int cantidadExtra) {
+        //llamamos al método de actualizar stock del servicio
+        IngredienteDTO result = ingredienteServicio.actualizarStock(id, cantidadExtra);
+        if(result != null) return ResponseEntity.ok(result);
+        return ResponseEntity.notFound().build();
     }
-    
-    // BORRAR - ID AHORA ES LONG
+    //BORRAR
     @DeleteMapping("/borrar/{id}")
     public ResponseEntity<?> eliminar(@PathVariable Long id) {
-        if(ingredienteRepository.existsById(id)){
-            ingredienteRepository.deleteById(id);
-            return ResponseEntity.ok("Ingrediente eliminado del almacén.");
-        }
-        return ResponseEntity.status(404).body("Error: No existe ese ingrediente.");
+        ingredienteServicio.borrarIngrediente(id);
+        return ResponseEntity.ok("Eliminado");
     }
 }

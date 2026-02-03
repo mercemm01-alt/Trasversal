@@ -28,6 +28,7 @@ public class ProductoEntity implements Serializable{
 	private String descripcion;
 	
 	@OneToMany(mappedBy="producto") //Un pedido, muchos productos
+	@com.fasterxml.jackson.annotation.JsonIgnore
 	private Set<PedidoEntity> producto = new HashSet<PedidoEntity>();
 	
 	// GETTERS & SETTERS
