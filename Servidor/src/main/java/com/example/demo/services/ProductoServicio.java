@@ -1,7 +1,8 @@
 package com.example.demo.services;
 
 import java.util.List;
-import com.example.demo.DTO.ProductoDTO;
+
+import com.example.demo.Model.ProductoDTO;
 
 public interface ProductoServicio {
     List<ProductoDTO> obtenerTodos();

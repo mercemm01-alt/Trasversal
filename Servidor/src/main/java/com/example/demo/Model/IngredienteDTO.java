@@ -1,19 +1,25 @@
 package com.example.demo.Model;
 
+import com.example.demo.Entity.Alergenos;
+
 public class IngredienteDTO {
 
     private long idIngrediente;
     private String nombre;
     private int cantidad; // Coincide con INT en tu SQL
-    private String alergenos;
+    private Alergenos alergenos;
 
     // Constructor completo
-    public IngredienteDTO(int idIngrediente, String nombre, int cantidad, String alergenos) {
+    public IngredienteDTO(int idIngrediente, String nombre, int cantidad, Alergenos alergenos) {
         super();
         this.idIngrediente = idIngrediente;
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.alergenos = alergenos;
+    }
+    
+    public IngredienteDTO() {
+    	
     }
 
     // GETTERS & SETTERS
@@ -41,11 +47,11 @@ public class IngredienteDTO {
         this.cantidad = cantidad;
     }
 
-    public String getAlergenos() {
+    public Alergenos getAlergenos() {
         return alergenos;
     }
 
-    public void setAlergenos(String alergenos) {
+    public void setAlergenos(Alergenos alergenos) {
         this.alergenos = alergenos;
     }
 

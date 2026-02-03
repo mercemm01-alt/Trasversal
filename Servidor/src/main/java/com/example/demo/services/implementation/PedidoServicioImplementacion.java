@@ -48,12 +48,12 @@ public class PedidoServicioImplementacion implements PedidoServicio {
         pedido.setCliente(cliente);
         pedido.setProducto(producto);
         pedido.setCantidad(dto.getCantidad());
-        pedido.setFechaPedido(new Date()); // Fecha actual
+        pedido.setFechaInicio(new Date()); // Fecha actual
         pedido.setFechaEntrega(dto.getFechaEntrega());
         pedido.setEstado(Estado.EN_PROCESO);
         
         double total = producto.getPrecio() * dto.getCantidad();
-        pedido.setTotal(total);
+        pedido.setPrecioFinal(total);
 
         // 4. Guardar
         PedidoEntity guardado = pedidoRepository.save(pedido);
@@ -93,10 +93,10 @@ public class PedidoServicioImplementacion implements PedidoServicio {
         dto.setCliente(p.getCliente().getIdCliente());
         dto.setProducto(p.getProducto().getIdProducto());
         dto.setCantidad(p.getCantidad());
-        dto.setFechaInicio(p.getFechaPedido());
+        dto.setFechaInicio(p.getFechaInicio());
         dto.setFechaEntrega(p.getFechaEntrega());
         dto.setEstado(p.getEstado());
-        dto.setPrecioFinal(p.getTotal());
+        dto.setPrecioFinal(p.getPrecioFinal());
         return dto;
     }
 }

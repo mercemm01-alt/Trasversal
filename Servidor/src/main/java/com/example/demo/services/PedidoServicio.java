@@ -1,8 +1,9 @@
 package com.example.demo.services;
 
 import java.util.List;
-import com.example.demo.DTO.PedidoDTO;
+
 import com.example.demo.Entity.PedidoEntity;
+import com.example.demo.Model.PedidoDTO;
 
 public interface PedidoServicio {
     PedidoDTO crearPedido(PedidoDTO pedidoDTO);

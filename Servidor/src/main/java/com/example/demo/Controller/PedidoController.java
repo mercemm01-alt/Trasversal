@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.DTO.PedidoDTO;
 import com.example.demo.Entity.ClienteEntity;
 import com.example.demo.Entity.Estado;
 import com.example.demo.Entity.PedidoEntity;
 import com.example.demo.Entity.ProductoEntity;
+import com.example.demo.Model.PedidoDTO;
 import com.example.demo.Repository.ClienteRepository;
 import com.example.demo.Repository.PedidoRepository;
 import com.example.demo.Repository.ProductoRepository;
@@ -62,7 +62,7 @@ public class PedidoController {
         pedido.setCliente(cliente);
         pedido.setProducto(producto);
         pedido.setCantidad(dto.getCantidad());
-        pedido.setFechaPedido(new Date()); // Fecha actual (Inicio)
+        pedido.setFechaInicio(new Date()); // Fecha actual (Inicio)
         pedido.setFechaEntrega(dto.getFechaEntrega()); 
         
         // Asignamos estado inicial (para cambiar el estado aqui)
@@ -71,14 +71,14 @@ public class PedidoController {
         // D. Calcular Precio Final
         double precioUnitario = producto.getPrecio();
         double total = precioUnitario * dto.getCantidad();
-        pedido.setTotal(total);
+        pedido.setPrecioFinal(total);
 
         // E. Guardar
         PedidoEntity guardado = pedidoRepository.save(pedido);
         
         // Actualizamos el DTO para devolverlo
         dto.setIdPedido(guardado.getIdPedido());
-        dto.setFechaInicio(guardado.getFechaPedido());
+        dto.setFechaInicio(guardado.getFechaInicio());
         dto.setPrecioFinal(total);
         dto.setEstado(guardado.getEstado());
         
@@ -117,13 +117,13 @@ public class PedidoController {
     private PedidoDTO convertirADTO(PedidoEntity p) {
         PedidoDTO dto = new PedidoDTO();
         dto.setIdPedido(p.getIdPedido());
-        dto.setCliente(p.getCliente().getIdCliente().longValue());
+        dto.setCliente(p.getCliente().getIdCliente());
         dto.setProducto(p.getProducto().getIdProducto());
         dto.setCantidad(p.getCantidad());
-        dto.setFechaInicio(p.getFechaPedido());
+        dto.setFechaInicio(p.getFechaInicio());
         dto.setFechaEntrega(p.getFechaEntrega());
         dto.setEstado(p.getEstado());
-        dto.setPrecioFinal(p.getTotal());
+        dto.setPrecioFinal(p.getPrecioFinal());
         return dto;
     }
 }
