@@ -1,6 +1,6 @@
-/*:root{
-    
-}*/
+:root{
+    --cl-barraSuperior: #A8565C;
+}
 
 *{
     margin: 0;
@@ -17,6 +17,7 @@ nav{
     align-items: center;
     margin-left: 1.5rem;
     gap: 2rem;
+    
 }
 
 .redes{
@@ -29,7 +30,7 @@ nav{
 .menu{
     display: flex;
     align-items: center;
-    background-color: rgb(136, 186, 243);
+    background-color: rgb(126, 178, 251);
 }
 
 .menu img{
