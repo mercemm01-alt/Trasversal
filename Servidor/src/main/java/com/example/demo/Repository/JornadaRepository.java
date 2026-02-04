@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.Entity.JornadaEntity;
 
 @Repository
-public interface JornadaRepository extends JpaRepository<JornadaEntity, Integer>{
+public interface JornadaRepository extends JpaRepository<JornadaEntity, Long>{
 
 }
