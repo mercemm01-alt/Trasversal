@@ -6,8 +6,8 @@ import com.example.demo.Entity.JornadaEntity;
 
 public interface JornadaServicio {
 	
-	void anadirJornada(String empleado);
-	void finalizarJornada(long id);
+	JornadaEntity anadirJornada(String empleado);
+	JornadaEntity finalizarJornada(long id);
 	List<JornadaEntity> listJornadas();
 
 }

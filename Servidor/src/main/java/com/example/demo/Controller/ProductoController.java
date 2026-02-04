@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.DTO.ProductoDTO;
 import com.example.demo.Entity.ProductoEntity;
+import com.example.demo.Model.ProductoDTO;
 import com.example.demo.Repository.ProductoRepository;
 
 @RestController
@@ -26,7 +26,7 @@ public class ProductoController {
         List<ProductoEntity> productos = productoRepository.findAll();
         
         return productos.stream().map(p -> new ProductoDTO(
-            p.getIdProducto().intValue(), // Convertimos el BIGINT a int para el DTO
+            (int) p.getIdProducto(), // Convertimos el BIGINT a int para el DTO
             p.getNombre(),
             BigDecimal.valueOf(p.getPrecio()),
             p.getDescripcion()
@@ -50,7 +50,7 @@ public class ProductoController {
         ProductoEntity guardado = productoRepository.save(nuevo);
         
         // Convertimos el ID Long nuevo a int para devolverlo
-        productoDTO.setIdProducto(guardado.getIdProducto().intValue());
+        productoDTO.setIdProducto(guardado.getIdProducto());
         return ResponseEntity.ok(productoDTO);
     }
 
