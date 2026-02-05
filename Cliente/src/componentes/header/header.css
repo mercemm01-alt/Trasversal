@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1.5rem;
+    background-color: #A8565C;
+    color: white;
+}
+
+/* IZQUIERDA */
+.contacto {
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* CENTRO */
+.redes {
+    display: flex;
+    gap: 1rem;
+    margin: 0 auto; /* 🔥 esto las centra */
+}
+
+.redes a {
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+/* DERECHA */
+.usuario {
+    display: flex;
+    align-items: center;
+}
+
+.logeado {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.logout {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+
+/* Menú principal */
+.menu {
+    display: flex;
+    align-items: center;
+    background-color: rgb(126, 178, 251);
+    padding: 1rem 1.5rem;
+}
+
+.menu img {
+    width: 100px;
+}
+
+/* Links */
+.links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto;
+}
+
+.link-nav {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
