@@ -11,23 +11,6 @@ function Login() {
     const envio = (e: React.FormEvent) => {
         e.preventDefault();
 
-         //Prueba ELIMINAR
-        if (usuario === "admin" && contrasena === "admin") {
-        localStorage.setItem("admin", "S");
-        localStorage.setItem("usuario", "admin");
-        rutas("/admin");
-        return;
-    }
-
-    if (usuario === "emple" && contrasena === "emple") {
-        localStorage.setItem("admin", "N");
-        localStorage.setItem("usuario", "emple");
-        rutas("/empleado");
-        return;
-    }
-
-    //ELIMINAR LO DE ARRIBA
-
         fetch("/api/login", {
         method: "POST",
         headers: {
