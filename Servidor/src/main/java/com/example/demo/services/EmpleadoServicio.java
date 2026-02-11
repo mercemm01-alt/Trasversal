@@ -2,13 +2,14 @@ package com.example.demo.services;
 
 import java.util.List;
 
-import com.example.demo.Entity.EmpleadoEntity;
+import com.example.demo.Model.CrearEmpleadoDTO;
+import com.example.demo.Model.EmpleadoDTO;
 
 public interface EmpleadoServicio {
 
-	EmpleadoEntity loginEmpleado(String usuario, String contrasena);
-	List<EmpleadoEntity> listEmpleados();
-	EmpleadoEntity anadirEmpleado(String usuario, String contrasena, String nombre, String apellidos, String admin);
-	void eliminarEmpleado(String usuario);
+	List<EmpleadoDTO> listarEmpleados();
+	void crearEmpleado(CrearEmpleadoDTO dto);
+
+    void eliminarEmpleado(String usuario);
 	
 }

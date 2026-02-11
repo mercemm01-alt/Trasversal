@@ -6,7 +6,11 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -17,32 +21,42 @@ public class EmpleadoEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name = "USUARIO")
-	private String usuario;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID_EMPLEADO")
+	private Long idEmpleado;
 	
-	@Column(name = "NOMBRE")
+	@ManyToOne
+    @JoinColumn(name = "USUARIO_ID", nullable = false)
+    private UsuarioEntity usuario;
+	
+	@Column(name = "NOMBRE", nullable = false)
 	private String nombre;
 	
-	@Column(name = "APELLIDOS")
+	@Column(name = "APELLIDOS", nullable = false)
 	private String apellido;
 	
-	@Column(name = "CONTRASENA")
-	private String contrasena;
-	
-	@Column(name = "ADMINISTRADOR")
-	private String admin;
+	@Column(name = "ES_ADMIN", nullable = false)
+	private Boolean admin;
 	
 	//Mapeado por empleado
 	@OneToMany(mappedBy = "empleado")
 	private Set<JornadaEntity> jornada = new HashSet<JornadaEntity>();
-	
-	// GETTERS & SETTERS
 
-	public String getUsuario() {
+	// GETTERS & SETTERS
+	
+	public Long getIdEmpleado() {
+		return idEmpleado;
+	}
+
+	public void setIdEmpleado(Long idEmpleado) {
+		this.idEmpleado = idEmpleado;
+	}
+
+	public UsuarioEntity getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(String usuario) {
+	public void setUsuario(UsuarioEntity usuario) {
 		this.usuario = usuario;
 	}
 
@@ -62,19 +76,11 @@ public class EmpleadoEntity implements Serializable{
 		this.apellido = apellido;
 	}
 
-	public String getContrasena() {
-		return contrasena;
-	}
-
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
-	}
-
-	public String getAdmin() {
+	public Boolean getAdmin() {
 		return admin;
 	}
 
-	public void setAdmin(String admin) {
+	public void setAdmin(Boolean admin) {
 		this.admin = admin;
 	}
 
@@ -88,10 +94,10 @@ public class EmpleadoEntity implements Serializable{
 
 	@Override
 	public String toString() {
-		return "EmpleadoEntity [usuario=" + usuario + ", nombre=" + nombre + ", apellido=" + apellido + ", contrasena="
-				+ contrasena + ", admin=" + admin + ", jornada=" + jornada + "]";
+		return "EmpleadoEntity [idEmpleado=" + idEmpleado + ", usuario=" + usuario + ", nombre=" + nombre
+				+ ", apellido=" + apellido + ", admin=" + admin + ", jornada=" + jornada
+				+ "]";
 	}
-
 	
 	
 }

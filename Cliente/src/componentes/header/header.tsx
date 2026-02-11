@@ -5,23 +5,20 @@ import './header.css'
 
 function Header(){
     const [usuario, setUsuario] = useState<string | null>(null);
-    const [admin, setAdmin] = useState<string | null>(null);
+    const [rol, setRol] = useState<string | null>(null);
     const navigate = useNavigate();
     const location = useLocation();
 
     useEffect(() => {
         setUsuario(localStorage.getItem("usuario"));
-        setAdmin(localStorage.getItem("admin"));
+        setRol(localStorage.getItem("rol"));
     }, [location.pathname]);
 
 
     const cerrarSesion = () => {
-        localStorage.removeItem("usuario");
-        localStorage.removeItem("admin");
-
+        localStorage.clear();
         setUsuario(null);
-        setAdmin(null);
-
+        setRol(null);
         navigate("/login");
     };
 
@@ -86,7 +83,21 @@ function Header(){
                     {/* Con usuario */}
                     {usuario && (
                         <div className="logeado">
-                        <span>Hola, {usuario}</span>
+                            <span>Hola, {usuario}</span>
+
+                            {/* CARRITO SOLO CLIENTE */}
+                            {rol === "CLIENTE" && (
+                                <Link to="/carrito" className="carrito">
+                                    <svg xmlns="http://www.w3.org/2000/svg" 
+                                    width="16" 
+                                    height="16" 
+                                    fill="currentColor" 
+                                    className="bi bi-cart" 
+                                    viewBox="0 0 16 16">
+                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                                    </svg>
+                                </Link>
+                            )}
 
                             <button onClick={cerrarSesion} className="logout">Cerrar sesión</button>
                         </div>
@@ -101,15 +112,14 @@ function Header(){
                         <Link className="link-nav" to="/">INICIO</Link>
                         <Link className="link-nav" to="/pasteleria">PASTELERÍA</Link>
                         <Link className="link-nav" to="/panaderia">PANADERÍA</Link>
-                        <Link className="link-nav" to="/encargos">ENCARGOS</Link>
 
-                        {usuario && admin === "S" && (
+                        {usuario && rol === "ADMIN" && (
                         <Link className="link-nav admin" to="/admin">
                             PANEL ADMIN
                         </Link>
                         )}
 
-                        {usuario && admin === "N" && (
+                        {usuario && rol === "EMPLEADO" && (
                             <Link className="link-nav emple" to="/emple">
                                 PANEL EMPLEADO
                             </Link>

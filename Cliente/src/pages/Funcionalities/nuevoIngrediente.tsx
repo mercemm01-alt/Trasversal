@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ALERGENOS = [
@@ -9,42 +9,30 @@ const ALERGENOS = [
 
 function NuevoIngrediente() {
     const [nombre, setNombre] = useState("");
-    const [cantidad, setCantidad] = useState(0);
-    const [alergenosSeleccionados, setAlergenosSeleccionados] = useState<string[]>([]);
+    const [stock, setStock] = useState(0);
+    const [alergeno, setAlergeno] = useState<string>("");
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
 
-    const toggleAlergeno = (alergeno: string) => {
-        setAlergenosSeleccionados(prev =>
-            prev.includes(alergeno)
-                ? prev.filter(a => a !== alergeno)
-                : [...prev, alergeno]
-        );
-    };
-
     const guardarIngrediente = () => {
-        if (!nombre.trim()) {
-            setError("El nombre del ingrediente es obligatorio");
+        if (!nombre || !alergeno) {
+            setError("Todos los campos son obligatorios");
             return;
         }
 
-        const ingrediente = {
-            nombre,
-            cantidad,
-            alergenos: alergenosSeleccionados.join(", ")
-        };
-
         fetch("/api/ingredientes", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(ingrediente)
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                nombre,
+                stock,
+                alergeno
+            })
         })
             .then(res => {
                 if (!res.ok) throw new Error();
-                navigate("/inventario");
+                navigate("/admin/inventario");
             })
             .catch(() => {
                 setError("No se pudo guardar el ingrediente");
@@ -59,45 +47,32 @@ function NuevoIngrediente() {
 
             <label>
                 Nombre
+                <input value={nombre} onChange={e => setNombre(e.target.value)} />
+            </label>
+
+            <label>
+                Stock inicial
                 <input
-                    type="text"
-                    value={nombre}
-                    onChange={e => setNombre(e.target.value)}
+                    type="number"
+                    min={0}
+                    value={stock}
+                    onChange={e => setStock(Number(e.target.value))}
                 />
             </label>
 
             <label>
-                Cantidad inicial
-                <input
-                    type="number"
-                    min={0}
-                    value={cantidad}
-                    onChange={e => setCantidad(Number(e.target.value))}
-                />
+                Alérgeno
+                <select value={alergeno} onChange={e => setAlergeno(e.target.value)}>
+                    <option value="">Selecciona uno</option>
+                    {ALERGENOS.map(a => (
+                        <option key={a} value={a}>{a}</option>
+                    ))}
+                </select>
             </label>
 
-            <h4>Alérgenos</h4>
-            <div className="alergenos">
-                {ALERGENOS.map(a => (
-                    <label key={a}>
-                        <input
-                            type="checkbox"
-                            checked={alergenosSeleccionados.includes(a)}
-                            onChange={() => toggleAlergeno(a)}
-                        />
-                        {a}
-                    </label>
-                ))}
-            </div>
-
             <div className="acciones">
-                <button onClick={guardarIngrediente}>
-                    Guardar ingrediente
-                </button>
-
-                <button onClick={() => navigate("/inventario")}>
-                    Cancelar
-                </button>
+                <button onClick={guardarIngrediente}>Guardar</button>
+                <button onClick={() => navigate("/admin/inventario")}>Cancelar</button>
             </div>
         </main>
     );

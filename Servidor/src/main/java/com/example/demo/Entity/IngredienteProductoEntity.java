@@ -20,11 +20,11 @@ public class IngredienteProductoEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "PRODUCTO_ID", nullable = false)
-	private ProductoEntity productoIngrdiente;
+	private ProductoEntity producto;
 	
 	@ManyToOne
-	@JoinColumn(name = "INGREDIENTES_ID", nullable = false)
-	private IngredientesEntity ingredientesProducto;
+	@JoinColumn(name = "INGREDIENTE_ID", nullable = false)
+	private IngredienteEntity ingrediente;
 	
 	// GETTERS & SETTERS
 
@@ -36,21 +36,26 @@ public class IngredienteProductoEntity {
 		this.idIp = idIp;
 	}
 
-	public ProductoEntity getProductoIngrdiente() {
-		return productoIngrdiente;
+	public ProductoEntity getProducto() {
+		return producto;
 	}
 
-	public void setProductoIngrdiente(ProductoEntity productoIngrdiente) {
-		this.productoIngrdiente = productoIngrdiente;
+	public void setProducto(ProductoEntity producto) {
+		this.producto = producto;
 	}
 
-	public IngredientesEntity getIngredientesProducto() {
-		return ingredientesProducto;
+	public IngredienteEntity getIngrediente() {
+		return ingrediente;
 	}
 
-	public void setIngredientesProducto(IngredientesEntity ingredientesProducto) {
-		this.ingredientesProducto = ingredientesProducto;
+	public void setIngrediente(IngredienteEntity ingrediente) {
+		this.ingrediente = ingrediente;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "IngredienteProductoEntity [idIp=" + idIp + ", producto=" + producto + ", ingrediente=" + ingrediente
+				+ "]";
+	}
+
 }

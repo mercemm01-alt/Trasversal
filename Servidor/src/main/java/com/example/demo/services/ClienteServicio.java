@@ -1,8 +1,9 @@
 package com.example.demo.services;
 
-import com.example.demo.Entity.ClienteEntity;
+import com.example.demo.Model.RegistroClienteDTO;
+import com.example.demo.Model.RespuestaLoginDTO;
 
 public interface ClienteServicio {
-    ClienteEntity registrarCliente(ClienteEntity cliente);
-    ClienteEntity loginCliente(String correo, String contrasena);
+	
+    RespuestaLoginDTO registrarCliente(RegistroClienteDTO cliente);
 }

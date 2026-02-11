@@ -9,6 +9,7 @@ function AdminPanel() {
                 <Link to="editar">Editar Productos</Link>
                 <Link to="inventario">Inventario</Link>
                 <Link to="usuarios">Administrar Usuarios</Link>
+                <Link to="verPedidos">Ver Pedidos</Link>
             </nav>
 
             <section className="contenido">

@@ -1,23 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import type { Producto } from "../../types/Producto";
 
-interface Producto {
-    id: number;
+interface Ingrediente {
+    idIngrediente: number;
     nombre: string;
-    descripcion: string;
-    imagen: string;
-    imagenesExtra: string[];
-    alergenos: string[];
-    visible: boolean;
 }
 
 function EditarProductos() {
     const [productos, setProductos] = useState<Producto[]>([]);
-    const [alergenos, setAlergenos] = useState<string[]>([]);
+    const [ingredientes, setIngredientes] = useState<Ingrediente[]>([]);
     const [error, setError] = useState("");
-    const admin = localStorage.getItem("admin");
 
-    /* CARGAR PRODUCTOS */
+    
+       //CARGAR PRODUCTOS
     useEffect(() => {
         fetch("/api/productos")
             .then(res => res.json())
@@ -25,37 +21,76 @@ function EditarProductos() {
             .catch(() => setError("No se pudieron cargar los productos"));
     }, []);
 
-    /* CARGAR ALÉRGENOS DESDE BBDD */
+       //CARGAR INGREDIENTES (inventario)
     useEffect(() => {
-        fetch("/api/alergenos")
+        fetch("/api/ingredientes")
             .then(res => res.json())
-            .then(data => setAlergenos(data))
-            .catch(() => setError("No se pudieron cargar los alérgenos"));
+            .then(data => setIngredientes(data))
+            .catch(() => setError("No se pudieron cargar los ingredientes"));
     }, []);
 
+       //TOGGLE INGREDIENTE
+    const toggleIngrediente = (idProducto: number, idIngrediente: number) => {
+        setProductos(prev =>
+            prev.map(p =>
+                p.idProducto === idProducto
+                    ? {
+                        ...p,
+                        ingredientes: p.ingredientes
+                            ? p.ingredientes.includes(idIngrediente)
+                                ? p.ingredientes.filter(i => i !== idIngrediente)
+                                : [...p.ingredientes, idIngrediente]
+                            : [idIngrediente]
+                    }
+                    : p
+            )
+        );
+    };
+
+    const eliminarProducto = (idProducto: number) => {
+        if (!confirm("¿Seguro que quieres eliminar este producto?")) return;
+
+        fetch(`/api/productos/${idProducto}`, {
+            method: "DELETE"
+        })
+            .then(res => {
+                if (!res.ok) throw new Error();
+
+                // Quitar el producto de la lista
+                setProductos(prev =>
+                    prev.filter(p => p.idProducto !== idProducto)
+                );
+            })
+            .catch(() => setError("No se pudo eliminar el producto"));
+    };
+
+       //GUARDAR PRODUCTO
     const guardarProducto = (
         producto: Producto,
-        imagenPrincipal?: File,
-        imagenesExtra?: FileList
+        imagenPrincipal?: File
     ) => {
         const formData = new FormData();
 
+        const productoEnviar = {
+            nombre: producto.nombre,
+            precio: producto.precio,
+            descripcion: producto.descripcion,
+            tipo: producto.tipo,
+            ingredientes: producto.ingredientes
+        };
+
         formData.append(
             "producto",
-            new Blob([JSON.stringify(producto)], { type: "application/json" })
+            new Blob([JSON.stringify(productoEnviar)], {
+                type: "application/json"
+            })
         );
 
         if (imagenPrincipal) {
             formData.append("imagen", imagenPrincipal);
         }
 
-        if (imagenesExtra) {
-            Array.from(imagenesExtra).forEach(img =>
-                formData.append("imagenesExtra", img)
-            );
-        }
-
-        fetch(`/api/productos/${producto.id}`, {
+        fetch(`/api/productos/${producto.idProducto}`, {
             method: "PUT",
             body: formData
         })
@@ -63,21 +98,6 @@ function EditarProductos() {
                 if (!res.ok) throw new Error();
             })
             .catch(() => setError("Error al guardar el producto"));
-    };
-
-    const toggleAlergeno = (id: number, alergeno: string) => {
-        setProductos(prev =>
-            prev.map(p =>
-                p.id === id
-                    ? {
-                        ...p,
-                        alergenos: p.alergenos.includes(alergeno)
-                            ? p.alergenos.filter(a => a !== alergeno)
-                            : [...p.alergenos, alergeno]
-                    }
-                    : p
-            )
-        );
     };
 
     return (
@@ -90,19 +110,32 @@ function EditarProductos() {
 
             {productos.map(p => {
                 let nuevaImagen: File | undefined;
-                let nuevasImagenes: FileList | undefined;
 
                 return (
-                    <article key={p.id} className="producto-editar">
-                        {/* IZQUIERDA */}
+                    <article key={p.idProducto} className="producto-editar">
+                        <div className="imagen-producto">
+                            <img src={`/img/${p.imagen}`} alt={p.nombre} />
+
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={e => {
+                                    if (e.target.files) {
+                                        nuevaImagen = e.target.files[0];
+                                    }
+                                }}
+                            />
+                        </div>
+
                         <div className="info-producto">
+                            <label>Nombre</label>
                             <input
                                 type="text"
                                 value={p.nombre}
                                 onChange={e =>
                                     setProductos(prev =>
                                         prev.map(prod =>
-                                            prod.id === p.id
+                                            prod.idProducto === p.idProducto
                                                 ? { ...prod, nombre: e.target.value }
                                                 : prod
                                         )
@@ -110,12 +143,13 @@ function EditarProductos() {
                                 }
                             />
 
+                            <label>Descripción</label>
                             <textarea
                                 value={p.descripcion}
                                 onChange={e =>
                                     setProductos(prev =>
                                         prev.map(prod =>
-                                            prod.id === p.id
+                                            prod.idProducto === p.idProducto
                                                 ? { ...prod, descripcion: e.target.value }
                                                 : prod
                                         )
@@ -123,69 +157,65 @@ function EditarProductos() {
                                 }
                             />
 
-                            <h4>Alérgenos</h4>
-                            <div className="alergenos">
-                                {alergenos.map(a => (
-                                    <label key={a}>
+                            {/* INGREDIENTES (EDITABLE)*/}
+
+                            <h4>Ingredientes</h4>
+                            <div className="ingredientes">
+                                {ingredientes.map(i => (
+                                    <label key={i.idIngrediente}>
                                         <input
                                             type="checkbox"
-                                            checked={p.alergenos.includes(a)}
-                                            onChange={() => toggleAlergeno(p.id, a)}
+                                            checked={p.ingredientes?.includes(i.idIngrediente) ?? false}
+                                            onChange={() =>
+                                                toggleIngrediente(
+                                                    p.idProducto,
+                                                    i.idIngrediente
+                                                )
+                                            }
                                         />
-                                        {a}
+                                        {i.nombre}
                                     </label>
                                 ))}
                             </div>
 
+                            {/* ALÉRGENOS (SOLO INFORMACIÓN) */}
+                            <h4>Alérgenos</h4>
+                            <p>{p.alergenos.join(", ") || "Sin alérgenos"}</p>
+
+                            <label>
+                                Tipo
+                                <select
+                                    value={p.tipo}
+                                    onChange={e =>
+                                        setProductos(prev =>
+                                            prev.map(prod =>
+                                                prod.idProducto === p.idProducto
+                                                    ? {
+                                                        ...prod,
+                                                        tipo: e.target.value as any
+                                                    }
+                                                    : prod
+                                            )
+                                        )
+                                    }
+                                >
+                                    <option value="PASTELERIA">Pastelería</option>
+                                    <option value="PANADERIA">Panadería</option>
+                                </select>
+                            </label>
+
                             <div className="acciones">
                                 <button
                                     onClick={() =>
-                                        guardarProducto(p, nuevaImagen, nuevasImagenes)
+                                        guardarProducto(p, nuevaImagen)
                                     }
-                                >
-                                    Guardar cambios
-                                </button>
+                                >Guardar cambios</button>
 
-                                <button>
-                                    {p.visible ? "Ocultar" : "Mostrar"}
-                                </button>
-
-                                {admin === "S" && (
-                                    <button className="eliminar">Eliminar</button>
-                                )}
+                                <button
+                                    className="eliminar"
+                                    onClick={() => eliminarProducto(p.idProducto)}
+                                >Eliminar producto</button>
                             </div>
-                        </div>
-
-                        {/* DERECHA */}
-                        <div className="imagen-producto">
-                            <img src={`/img/${p.imagen}`} alt={p.nombre} />
-
-                            <label>
-                                Cambiar imagen principal
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={e => {
-                                        if (e.target.files) {
-                                            nuevaImagen = e.target.files[0];
-                                        }
-                                    }}
-                                />
-                            </label>
-
-                            <label>
-                                Añadir imágenes adicionales
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    multiple
-                                    onChange={e => {
-                                        if (e.target.files) {
-                                            nuevasImagenes = e.target.files;
-                                        }
-                                    }}
-                                />
-                            </label>
                         </div>
                     </article>
                 );
