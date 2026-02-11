@@ -1,61 +1,186 @@
 package com.example.demo.services.implementation;
 
-import java.math.BigDecimal;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.Entity.IngredienteEntity;
+import com.example.demo.Entity.IngredienteProductoEntity;
 import com.example.demo.Entity.ProductoEntity;
+import com.example.demo.Entity.Tipo;
 import com.example.demo.Model.ProductoDTO;
+import com.example.demo.Repository.IngredienteProductoRepository;
+import com.example.demo.Repository.IngredienteRepository;
 import com.example.demo.Repository.ProductoRepository;
 import com.example.demo.services.ProductoServicio;
+
+import tools.jackson.databind.ObjectMapper;
 
 @Service
 public class ProductoServicioImplementacion implements ProductoServicio {
 
-    @Autowired private ProductoRepository productoRepository;
+	@Autowired
+    private ProductoRepository productoRepository;
 
+    @Autowired
+    private IngredienteRepository ingredienteRepository;
+
+    @Autowired
+    private IngredienteProductoRepository ingredienteProductoRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    /* =========================
+       LISTAR TODOS LOS PRODUCTOS
+       ========================= */
     @Override
-    public List<ProductoDTO> obtenerTodos() {
-        return productoRepository.findAll().stream().map(p -> new ProductoDTO(
-            (int) p.getIdProducto(),
-            p.getNombre(),
-            BigDecimal.valueOf(p.getPrecio()),
-            p.getDescripcion()
-        )).collect(Collectors.toList());
+    public List<ProductoDTO> listarProductos() {
+        return productoRepository.findAll()
+                .stream()
+                .map(this::convertirADTO)
+                .toList();
     }
 
+    /* =========================
+       LISTAR PRODUCTOS POR TIPO
+       ========================= */
     @Override
-    public ProductoDTO guardarProducto(ProductoDTO dto) {
-        ProductoEntity p = new ProductoEntity();
-        p.setNombre(dto.getNombre());
-        p.setPrecio(dto.getPrecio().doubleValue());
-        p.setDescripcion(dto.getDescripcion());
-        
-        ProductoEntity guardado = productoRepository.save(p);
-        dto.setIdProducto((int) guardado.getIdProducto());
+    public List<ProductoDTO> obtenerProductosPorTipo(Tipo tipo) {
+        return productoRepository.findByTipo(tipo)
+                .stream()
+                .map(this::convertirADTO)
+                .toList();
+    }
+
+    /* =========================
+       CREAR PRODUCTO
+       ========================= */
+    @Override
+    public void crearProducto(String productoJson, MultipartFile imagen) throws Exception {
+
+        ProductoDTO dto = objectMapper.readValue(productoJson, ProductoDTO.class);
+
+        ProductoEntity producto = new ProductoEntity();
+        producto.setNombre(dto.getNombre());
+        producto.setPrecio(dto.getPrecio());
+        producto.setDescripcion(dto.getDescripcion());
+        producto.setTipo(dto.getTipo());
+
+        if (imagen != null) {
+            producto.setImagen(imagen.getOriginalFilename());
+            Path ruta = Paths.get("src/main/resources/static/img/" + imagen.getOriginalFilename());
+            Files.write(ruta, imagen.getBytes());
+        }
+
+        productoRepository.save(producto);
+
+        guardarIngredienteProducto(producto, dto.getIngredientes());
+    }
+
+    /* =========================
+       ACTUALIZAR PRODUCTO
+       ========================= */
+    @Transactional
+    @Override
+    public void actualizarProducto(
+            Long idProducto,
+            String productoJson,
+            MultipartFile imagen
+    ) throws Exception {
+
+        ProductoEntity producto = productoRepository.findById(idProducto)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        ProductoDTO dto = objectMapper.readValue(productoJson, ProductoDTO.class);
+
+        producto.setNombre(dto.getNombre());
+        producto.setPrecio(dto.getPrecio());
+        producto.setDescripcion(dto.getDescripcion());
+        producto.setTipo(dto.getTipo());
+
+        if (imagen != null) {
+            producto.setImagen(imagen.getOriginalFilename());
+        }
+
+        // 🔴 Eliminar relaciones anteriores
+        ingredienteProductoRepository.deleteByProducto(producto);
+
+        // 🔴 Guardar nuevas relaciones
+        guardarIngredienteProducto(producto, dto.getIngredientes());
+
+        productoRepository.save(producto);
+    }
+
+    /* =========================
+       MÉTODO CLAVE: ENTITY → DTO
+       ========================= */
+    private ProductoDTO convertirADTO(ProductoEntity producto) {
+
+        ProductoDTO dto = new ProductoDTO();
+        dto.setIdProducto(producto.getIdProducto());
+        dto.setNombre(producto.getNombre());
+        dto.setPrecio(producto.getPrecio());
+        dto.setDescripcion(producto.getDescripcion());
+        dto.setImagen(producto.getImagen());
+        dto.setTipo(producto.getTipo());
+
+        // 🔥 AQUÍ se calculan los alérgenos
+        List<Long> ingredientes = producto.getIngredienteProductos()
+                .stream()
+                .map(ip -> ip.getIngrediente().getIdIngredientes())
+                .toList();
+
+        List<String> alergenos = producto.getIngredienteProductos()
+                .stream()
+                .map(ip -> ip.getIngrediente().getAlergeno().name())
+                .distinct()
+                .toList();
+
+        dto.setIngredientes(ingredientes);
+        dto.setAlergenos(alergenos);
+
         return dto;
     }
 
-    @Override
-    public void borrarProducto(Long id) {
-        if(productoRepository.existsById(id)) {
-            productoRepository.deleteById(id);
-        }
-    }
+    /* =========================
+       GUARDAR INGREDIENTES
+       ========================= */
+    private void guardarIngredienteProducto(
+            ProductoEntity producto,
+            List<Long> ingredientesIds
+    ) {
+        if (ingredientesIds == null || ingredientesIds.isEmpty()) return;
 
-    @Override
-    public ProductoDTO editarProducto(Long id, ProductoDTO dto) {
-        ProductoEntity p = productoRepository.findById(id).orElse(null);
-        if(p != null) {
-            p.setNombre(dto.getNombre());
-            p.setPrecio(dto.getPrecio().doubleValue());
-            p.setDescripcion(dto.getDescripcion());
-            productoRepository.save(p);
-            return dto;
+        List<IngredienteEntity> ingredientes =
+                ingredienteRepository.findAllById(ingredientesIds);
+
+        for (IngredienteEntity ingrediente : ingredientes) {
+            IngredienteProductoEntity ip = new IngredienteProductoEntity();
+            ip.setProducto(producto);
+            ip.setIngrediente(ingrediente);
+            ingredienteProductoRepository.save(ip);
         }
-        return null;
     }
+    
+    @Transactional
+    @Override
+    public void eliminarProducto(Long idProducto) {
+
+        ProductoEntity producto = productoRepository.findById(idProducto)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        // Eliminar relaciones producto–ingrediente primero
+        ingredienteProductoRepository.deleteByProducto(producto);
+
+        // Eliminar producto
+        productoRepository.delete(producto);
+    }
+   
 }

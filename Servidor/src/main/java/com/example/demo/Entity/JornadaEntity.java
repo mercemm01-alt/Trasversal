@@ -1,8 +1,7 @@
 package com.example.demo.Entity;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -26,21 +25,21 @@ public class JornadaEntity implements Serializable{
 	@Column(name = "ID_JORNADA")
 	private Long idJornada;
 	
-	@Column(name = "FECHA")
+	@Column(name = "FECHA", nullable = false)
 	private LocalDate fecha;
 	
-	@Column(name = "HORA_INICIO")
+	@Column(name = "HORA_INICIO", nullable = false)
 	private LocalTime horaInicio;
 	
 	@Column(name = "HORA_SALIDA")
 	private LocalTime horaSalida;
 	
-	@Column(name = "HORAS_DIA")
-	private float horasDia;
+	@Column(name = "HORAS_DIA", precision = 4, scale = 2)
+	private BigDecimal horasDia;
 	
 	//Empleado que ficha
 	@ManyToOne
-	@JoinColumn(name = "EMPLEADO", nullable = false)
+	@JoinColumn(name = "EMPLEADO_ID", nullable = false)
 	private EmpleadoEntity empleado;
 	
 	// GETTERS & SETTERS
@@ -85,13 +84,12 @@ public class JornadaEntity implements Serializable{
 		this.horaSalida = horaSalida;
 	}
 
-
-	public float getHorasDia() {
+	public BigDecimal getHorasDia() {
 		return horasDia;
 	}
 
 
-	public void setHorasDia(float horasDia) {
+	public void setHorasDia(BigDecimal horasDia) {
 		this.horasDia = horasDia;
 	}
 
@@ -101,20 +99,15 @@ public class JornadaEntity implements Serializable{
 	}
 
 
-	public void setEmpleado(EmpleadoEntity jornada) {
-		this.empleado = jornada;
+	public void setEmpleado(EmpleadoEntity empleado) {
+		this.empleado = empleado;
 	}
 
 
 	@Override
 	public String toString() {
-	    return "JornadaEntity [idJornada=" + idJornada + ", fecha=" + fecha 
-	        + ", horaInicio=" + horaInicio + ", horaSalida=" + horaSalida 
-	        + ", horasDia=" + horasDia 
-	        + ", empleado=" + (empleado != null ? empleado.getUsuario() : null) + "]";
+		return "JornadaEntity [idJornada=" + idJornada + ", fecha=" + fecha + ", horaInicio=" + horaInicio
+				+ ", horaSalida=" + horaSalida + ", horasDia=" + horasDia + ", empleado=" + empleado + "]";
 	}
-
-	
-	
 	
 }

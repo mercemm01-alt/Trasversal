@@ -2,71 +2,69 @@ package com.example.demo.Model;
 
 public class CrearEmpleadoDTO {
 
+	private String usuario;
+    private String contrasena;
     private String nombre;
-	private String apellido;
-	private String admin;
-    private String usuario;
-	private String contrasena;
+    private String apellidos;
+    private String administrador; // "S" | "N"
 
     public CrearEmpleadoDTO() {
         //TODO Auto-generated constructor stub
     }
 
-    public CrearEmpleadoDTO(String nombre, String apellido, String admin, String usuario, String contrasena) {
+    public CrearEmpleadoDTO(String usuario, String contrasena, String nombre, String apellidos, String administrador) {
 		super();
+		this.usuario = usuario;
+		this.contrasena = contrasena;
 		this.nombre = nombre;
-		this.apellido = apellido;
-		this.admin = "N";
-        this.usuario = usuario;
+		this.apellidos = apellidos;
+		this.administrador = administrador;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getContrasena() {
+		return contrasena;
+	}
+
+	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
 
-    // GETTERS & SETTERS
+	public String getNombre() {
+		return nombre;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public String getApellidos() {
+		return apellidos;
+	}
 
-    public String getApellido() {
-        return apellido;
-    }
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
+	public String getAdministrador() {
+		return administrador;
+	}
 
-    public String getAdmin() {
-        return admin;
-    }
+	public void setAdministrador(String administrador) {
+		this.administrador = administrador;
+	}
 
-    public void setAdmin(String admin) {
-        this.admin = admin;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
-    @Override
-    public String toString() {
-        return "CrearEmpleadoDTO [nombre=" + nombre + ", apellido=" + apellido + ", admin=" + admin + ", usuario="
-                + usuario + ", contrasena=" + contrasena + "]";
-    }
+	@Override
+	public String toString() {
+		return "CrearEmpleadoDTO [usuario=" + usuario + ", contrasena=" + contrasena + ", nombre=" + nombre
+				+ ", apellidos=" + apellidos + ", administrador=" + administrador + "]";
+	}
     
 }

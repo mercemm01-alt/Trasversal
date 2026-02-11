@@ -8,6 +8,7 @@ function EmplePanel(){
                 <Link to="fichar">Fichar</Link>
                 <Link to="editar">Editar Productos</Link>
                 <Link to="inventario">Inventario</Link>
+                <Link to="verPedidos">Ver Pedidos</Link>
             </nav>
 
             <section className="contenido">

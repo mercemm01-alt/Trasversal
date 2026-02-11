@@ -2,12 +2,13 @@ package com.example.demo.services;
 
 import java.util.List;
 
-import com.example.demo.Entity.PedidoEntity;
-import com.example.demo.Model.PedidoDTO;
+import com.example.demo.Model.HacerPedidoDTO;
+import com.example.demo.Model.VerPedidoDTO;
 
 public interface PedidoServicio {
-    PedidoDTO crearPedido(PedidoDTO pedidoDTO);
-    List<PedidoDTO> listarPedidosPendientes(); // Para empleados
-    List<PedidoDTO> listarTodos(); // Para historial
+    void crearPedido(HacerPedidoDTO pedidoDTO);
+    List<VerPedidoDTO> obtenerPedidosDelMes(); // Para historial
     void marcarEntregado(Long idPedido);
+    
+    /*List<PedidoDTO> listarPedidosPendientes(); // Para empleados*/
 }

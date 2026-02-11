@@ -21,23 +21,24 @@ public class ClienteEntity implements Serializable{
 	@Column(name="ID_CLIENTE")
 	private long idCliente;
 	
-	@Column(name="NOMBRE")
+	@ManyToOne
+    @JoinColumn(name = "USUARIO_ID", nullable = false)
+    private UsuarioEntity usuario;
+	
+	@Column(name="NOMBRE", nullable = false)
 	private String nombre;
 	
-	@Column(name="APELLIDO")
-	private String apellido;
+	@Column(name="APELLIDOS", nullable = false)
+	private String apellidos;
 	
-	@Column(name="CORREO")
+	@Column(name="CORREO", nullable = false)
 	private String correo;
 	
-	@Column(name="CONTRASEÑA")
-	private String contraseña;
-	
-	@Column(name="NUM_TLF")
+	@Column(name="NUM_TLF", nullable = false)
 	private int numTlf;
 	
-	@OneToOne(mappedBy = "cliente")
-	private Set<PedidoEntity> pedidos = new HashSet<PedidoEntity>();
+	@OneToMany(mappedBy = "cliente")
+    private Set<PedidoEntity> pedidos = new HashSet<>();
 	
 	// GETTERS & SETTERS
 
@@ -49,6 +50,14 @@ public class ClienteEntity implements Serializable{
 		this.idCliente = idCliente;
 	}
 
+	public UsuarioEntity getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioEntity usuario) {
+		this.usuario = usuario;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -57,12 +66,12 @@ public class ClienteEntity implements Serializable{
 		this.nombre = nombre;
 	}
 
-	public String getApellido() {
-		return apellido;
+	public String getApellidos() {
+		return apellidos;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 
 	public String getCorreo() {
@@ -71,14 +80,6 @@ public class ClienteEntity implements Serializable{
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
-	}
-
-	public String getContraseña() {
-		return contraseña;
-	}
-
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
 	}
 
 	public int getNumTlf() {
@@ -96,6 +97,13 @@ public class ClienteEntity implements Serializable{
 	public void setPedidos(Set<PedidoEntity> pedidos) {
 		this.pedidos = pedidos;
 	}
+
+	@Override
+	public String toString() {
+		return "ClienteEntity [idCliente=" + idCliente + ", usuario=" + usuario + ", nombre=" + nombre + ", apellidos="
+				+ apellidos + ", correo=" + correo + ", numTlf=" + numTlf + ", pedidos=" + pedidos + "]";
+	}
+	
 	
 
 }

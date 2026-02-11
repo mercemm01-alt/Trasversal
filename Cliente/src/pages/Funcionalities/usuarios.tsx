@@ -1,11 +1,5 @@
 import { useEffect, useState } from "react";
-
-interface Empleado {
-    usuario: string;
-    nombre: string;
-    apellidos: string;
-    administrador: "S" | "N";
-}
+import type { Empleado } from "../../types/Empleado";
 
 function AdministrarUsuarios() {
     const [empleados, setEmpleados] = useState<Empleado[]>([]);
@@ -19,6 +13,7 @@ function AdministrarUsuarios() {
     const [contrasena, setContrasena] = useState("");
     const [admin, setAdmin] = useState(false);
 
+    //carga empleados
     useEffect(() => {
         fetch("/api/empleados")
         .then(res => {
@@ -29,6 +24,7 @@ function AdministrarUsuarios() {
         .catch(() => setError("No se pudieron cargar los empleados"));
     }, []);
 
+    //crea empleado
     const crearEmpleado = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -63,10 +59,12 @@ function AdministrarUsuarios() {
             setContrasena("");
             setAdmin(false);
             setMostrarForm(false);
+            setError("");
         })
         .catch(() => setError("No se pudo crear el empleado"));
     };
 
+    // eliminar empleado
     const eliminarEmpleado = (usuario: string) => {
         fetch(`/api/empleados/${usuario}`, {
         method: "DELETE"

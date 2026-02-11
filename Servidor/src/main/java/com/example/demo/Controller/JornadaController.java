@@ -3,10 +3,13 @@ package com.example.demo.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.Entity.JornadaEntity;
+import com.example.demo.Model.JornadaAdminDTO;
+import com.example.demo.Model.JornadaEmpleadoDTO;
+import com.example.demo.Model.JornadaFinDTO;
+import com.example.demo.Model.JornadaInicioDTO;
 import com.example.demo.services.JornadaServicio;
 
 @RestController
@@ -16,30 +19,29 @@ public class JornadaController {
     @Autowired
     private JornadaServicio jornadaServicio;
 
-    //FICHAR ENTRADA (CREAMOS LA JORNADA)
-    @PostMapping("/entrada/{usuario}")
-    public ResponseEntity<JornadaEntity> fichaEntrada(@PathVariable String usuario) {
-
-        JornadaEntity jornada = jornadaServicio.anadirJornada(usuario);
-
-        return ResponseEntity.ok(jornada);
+    @GetMapping("/hoy/{usuario}")
+    public List<JornadaEmpleadoDTO> hoyEmpleado(@PathVariable String usuario) {
+        return jornadaServicio.obtenerJornadasHoyUsuario(usuario);
     }
 
-    //FICHAR SALIDA (REGISTRAMOS LA HORA DE SALIDA EN LA JORNADA YA EXISTENTE)
-    @PutMapping("/salida/{id}")
-    public ResponseEntity<JornadaEntity> fichaSalida(@PathVariable Long id) {
-
-        JornadaEntity jornada = jornadaServicio.finalizarJornada(id);
-
-        return ResponseEntity.ok(jornada);
+    @PostMapping("/inicio")
+    public void iniciar(@RequestBody JornadaInicioDTO dto) {
+    	jornadaServicio.iniciarJornada(dto);
+    }
+    
+    @GetMapping("/abierta/{usuario}")
+    public JornadaEntity jornadaAbierta(@PathVariable String usuario) {
+        return jornadaServicio.obtenerJornadaAbierta(usuario);
     }
 
-    //LISTA DE JORNADAS
-    @GetMapping
-    public ResponseEntity<List<JornadaEntity>> listaJornadas() {
+    @PutMapping("/fin")
+    public void finalizar(@RequestBody JornadaFinDTO dto) {
+    	jornadaServicio.finalizarJornada(dto);
+    }
 
-        List<JornadaEntity> jornadas = jornadaServicio.listJornadas();
-
-        return ResponseEntity.ok(jornadas);
+    // ADMIN
+    @GetMapping("/admin/todas")
+    public List<JornadaAdminDTO> todasAdmin() {
+        return jornadaServicio.obtenerTodasJornadasAdmin();
     }
 }

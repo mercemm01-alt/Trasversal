@@ -1,11 +1,7 @@
 package com.example.demo.services.implementation;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +9,11 @@ import org.springframework.stereotype.Service;
 import com.example.demo.Entity.ClienteEntity;
 import com.example.demo.Entity.Estado;
 import com.example.demo.Entity.PedidoEntity;
+import com.example.demo.Entity.PedidoProductoEntity;
 import com.example.demo.Entity.ProductoEntity;
-import com.example.demo.Model.PedidoDTO;
+import com.example.demo.Model.HacerPedidoDTO;
+import com.example.demo.Model.PedidoProductoDTO;
+import com.example.demo.Model.VerPedidoDTO;
 import com.example.demo.Repository.ClienteRepository;
 import com.example.demo.Repository.PedidoRepository;
 import com.example.demo.Repository.ProductoRepository;
@@ -26,65 +25,96 @@ public class PedidoServicioImplementacion implements PedidoServicio {
     @Autowired private PedidoRepository pedidoRepository;
     @Autowired private ProductoRepository productoRepository;
     @Autowired private ClienteRepository clienteRepository;
-
+	
     @Override
-    public PedidoDTO crearPedido(PedidoDTO dto) {
-        // 1. Validar fecha (regla de los 2 días)
-        if (dto.getFechaEntrega() == null) throw new RuntimeException("Falta fecha de entrega");
+	public void crearPedido(HacerPedidoDTO pedidoDTO) {
+    	System.out.println("ID USUARIO RECIBIDO: " + pedidoDTO.getUsuario());
 
-        LocalDate fechaEntrega = dto.getFechaEntrega().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate hoy = LocalDate.now();
+    	// Validar cliente
+    	ClienteEntity cliente = clienteRepository
+    	        .findByUsuario_IdUsuarios(pedidoDTO.getUsuario())
+    	        .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
 
-        if (ChronoUnit.DAYS.between(hoy, fechaEntrega) < 2) {
-            throw new RuntimeException("El pedido debe hacerse con 2 días de antelación.");
+        // Validar fecha (48h)
+        LocalDateTime ahora = LocalDateTime.now();
+        
+        LocalDateTime fechaEntrega = pedidoDTO.getFechaEntrega().atStartOfDay();
+        if (fechaEntrega.isBefore(ahora.plusHours(48))) {
+            throw new RuntimeException("La fecha de entrega debe ser al menos 48h después");
         }
 
-        // 2. Buscar entidades
-        ClienteEntity cliente = clienteRepository.findById(dto.getCliente()).orElseThrow(() -> new RuntimeException("Cliente no existe"));
-        ProductoEntity producto = productoRepository.findById(dto.getProducto()).orElseThrow(() -> new RuntimeException("Producto no existe"));
-
-        // 3. Crear entidad y calcular total
+        //  Crear pedido
         PedidoEntity pedido = new PedidoEntity();
         pedido.setCliente(cliente);
-        pedido.setProducto(producto);
-        pedido.setCantidad(dto.getCantidad());
-        pedido.setFechaInicio(new Date()); // Fecha actual
-        pedido.setFechaEntrega(dto.getFechaEntrega());
-        pedido.setEstado(Estado.EN_PROCESO);
-        
-        double total = producto.getPrecio() * dto.getCantidad();
-        pedido.setPrecioFinal(total);
+        pedido.setFechaPedido(ahora);
+        pedido.setFechaEntrega(fechaEntrega);
+        pedido.setEstado(Estado.PENDIENTE);
+        pedido.setTotal(pedidoDTO.getTotal());
 
-        // 4. Guardar
-        PedidoEntity guardado = pedidoRepository.save(pedido);
-        
-        // 5. Actualizar DTO para devolverlo
-        dto.setIdPedido(guardado.getIdPedido());
-        dto.setPrecioFinal(total);
-        dto.setEstado(Estado.EN_PROCESO);
-        
-        return dto;
+        // Productos del pedido
+        for (PedidoProductoDTO p : pedidoDTO.getProductos()) {
+        	if (p.getIdProducto() == null) {
+                throw new IllegalArgumentException("ID de producto no puede ser nulo. Verifica los productos en el carrito.");
+            }
+
+            ProductoEntity producto = productoRepository.findById(p.getIdProducto())
+                    .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+            PedidoProductoEntity pedidoProducto = new PedidoProductoEntity();
+            pedidoProducto.setPedido(pedido);
+            pedidoProducto.setProducto(producto);
+            pedidoProducto.setCantidad(p.getCantidad());
+
+            pedido.getPedidoProductos().add(pedidoProducto);
+            
+            if (pedido.getPedidoProductos().isEmpty()) {
+                throw new IllegalArgumentException("El pedido debe contener al menos un producto válido.");
+            }
+        }
+
+        // Guardar todo (cascade)
+        pedidoRepository.save(pedido);
+		
+	}
+    
+    private VerPedidoDTO convertirAVerPedidoDTO(PedidoEntity p) {
+        return new VerPedidoDTO(
+            p.getIdPedido(),
+            p.getCliente().getNombre(),
+            p.getCliente().getApellidos(),
+            p.getFechaPedido(),
+            p.getFechaEntrega(),
+            p.getTotal(),
+            p.getEstado().name()
+        );
+    }
+    
+    @Override
+    public List<VerPedidoDTO> obtenerPedidosDelMes() {
+    	 return pedidoRepository.findPedidosDelMes().stream()
+    		        .map(this::convertirAVerPedidoDTO)
+    		        .toList();
     }
 
     @Override
+    public void marcarEntregado(Long idPedido) {
+        PedidoEntity pedido = pedidoRepository.findById(idPedido).orElseThrow(() 
+        		-> new RuntimeException("Pedido no encontrado"));
+
+        pedido.setEstado(Estado.ENTREGADO);
+        pedidoRepository.save(pedido);
+    }
+    
+
+   /* @Override
     public List<PedidoDTO> listarPedidosPendientes() {
         return pedidoRepository.findByEstadoOrderByFechaEntregaAsc(Estado.EN_PROCESO)
                 .stream().map(this::convertirADTO).collect(Collectors.toList());
     }
 
-    @Override
-    public List<PedidoDTO> listarTodos() {
-        return pedidoRepository.findAll().stream().map(this::convertirADTO).collect(Collectors.toList());
-    }
+    
 
-    @Override
-    public void marcarEntregado(Long idPedido) {
-        PedidoEntity p = pedidoRepository.findById(idPedido).orElse(null);
-        if(p != null) {
-            p.setEstado(Estado.ENTREGADO);
-            pedidoRepository.save(p);
-        }
-    }
+    
 
     // privado para convertir
     private PedidoDTO convertirADTO(PedidoEntity p) {
@@ -98,5 +128,5 @@ public class PedidoServicioImplementacion implements PedidoServicio {
         dto.setEstado(p.getEstado());
         dto.setPrecioFinal(p.getPrecioFinal());
         return dto;
-    }
+    }*/
 }

@@ -3,19 +3,19 @@ import React from "react";
 
 interface Props {
     children: React.ReactNode;
-    soloAdmin?: boolean;
+    rolPermitido: string,
     }
 
-    function RutasSeguras({ children, soloAdmin = false }: Props) {
-        const admin = localStorage.getItem("admin");
-        const usuario = localStorage.getItem("usuario");
+    function RutasSeguras({ children, rolPermitido }: Props) {
+        const rol = localStorage.getItem("rol");
+        
 
-        if (!admin || !usuario) {
-            return <Navigate to="/login" />;
+        if (!rol){
+            return <Navigate to="/inicio" replace />;
         }
 
-        if (soloAdmin && admin !== "S") {
-            return <Navigate to="/empleado" />;
+        if (rol !== rolPermitido) {
+            return <Navigate to="/login" replace />;
         }
 
         return children;

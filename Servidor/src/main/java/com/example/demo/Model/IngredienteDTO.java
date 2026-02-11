@@ -1,21 +1,19 @@
 package com.example.demo.Model;
 
-import com.example.demo.Entity.Alergenos;
-
 public class IngredienteDTO {
 
-    private long idIngrediente;
+    private Long idIngrediente;
     private String nombre;
-    private int cantidad; // Coincide con INT en tu SQL
-    private Alergenos alergenos;
+    private int stock; // Coincide con INT en tu SQL
+    private String alergeno;
 
     // Constructor completo
-    public IngredienteDTO(int idIngrediente, String nombre, int cantidad, Alergenos alergenos) {
+    public IngredienteDTO(Long idIngrediente, String nombre, int stock, String alergeno) {
         super();
         this.idIngrediente = idIngrediente;
         this.nombre = nombre;
-        this.cantidad = cantidad;
-        this.alergenos = alergenos;
+        this.stock = stock;
+        this.alergeno = alergeno;
     }
     
     public IngredienteDTO() {
@@ -39,25 +37,25 @@ public class IngredienteDTO {
         this.nombre = nombre;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public int getStock() {
+        return stock;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
-    public Alergenos getAlergenos() {
-        return alergenos;
+    public String getAlergeno() {
+        return alergeno;
     }
 
-    public void setAlergenos(Alergenos alergenos) {
-        this.alergenos = alergenos;
+    public void setAlergeno(String alergeno) {
+        this.alergeno = alergeno;
     }
 
     @Override
     public String toString() {
-        return "IngredienteDTO [idIngrediente=" + idIngrediente + ", nombre=" + nombre + ", cantidad=" + cantidad
-                + ", alergenos=" + alergenos + "]";
+        return "IngredienteDTO [idIngrediente=" + idIngrediente + ", nombre=" + nombre + ", stock=" + stock
+                + ", alergenos=" + alergeno + "]";
     }
 }

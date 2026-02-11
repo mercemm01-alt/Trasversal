@@ -1,9 +1,12 @@
 package com.example.demo.Entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="PEDIDO")
@@ -17,30 +20,27 @@ public class PedidoEntity implements Serializable{
 	private long idPedido;
 	
 	@ManyToOne //Muchos pedidos para un cliente
-	@JoinColumn(name="CLIENTE", nullable = false)
+	@JoinColumn(name="CLIENTE_ID", nullable = false)
 	private ClienteEntity cliente;
 
-	@ManyToOne 
-	@JoinColumn(name="PRODUCTO", nullable = false)
-	private ProductoEntity producto;
+	@Column(name = "FECHA_PEDIDO", nullable = false)
+    private LocalDateTime fechaPedido;
 
-	@Column(name="CANTIDAD")
-	private int cantidad;
-	
-	@Column(name="FECHA_INICIO")
-	private Date fechaInicio;
-	
-	@Column(name="FECHA_ENTREGA")
-	private Date fechaEntrega;
-	
-	@Column(name="ESTADO")
-	private Estado estado;
-	
-	@Column(name="PRECIO_FINAL")
-	private double precioFinal;
+    @Column(name = "FECHA_ENTREGA", nullable = false)
+    private LocalDateTime fechaEntrega;
 
-	// GETTERS & SETTERS
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ESTADO", nullable = false)
+    private Estado estado;
 
+    @Column(name = "TOTAL", nullable = false, precision = 10, scale = 2)
+    private BigDecimal total;
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PedidoProductoEntity> pedidoProductos = new HashSet<>();
+
+    // GETTERS & SETTERS
+    
 	public long getIdPedido() {
 		return idPedido;
 	}
@@ -57,35 +57,19 @@ public class PedidoEntity implements Serializable{
 		this.cliente = cliente;
 	}
 
-	public ProductoEntity getProducto() {
-		return producto;
+	public LocalDateTime getFechaPedido() {
+		return fechaPedido;
 	}
 
-	public void setProducto(ProductoEntity producto) {
-		this.producto = producto;
+	public void setFechaPedido(LocalDateTime fechaPedido) {
+		this.fechaPedido = fechaPedido;
 	}
 
-	public int getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
-
-	public Date getFechaInicio() {
-		return fechaInicio;
-	}
-
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
-
-	public Date getFechaEntrega() {
+	public LocalDateTime getFechaEntrega() {
 		return fechaEntrega;
 	}
 
-	public void setFechaEntrega(Date fechaEntrega) {
+	public void setFechaEntrega(LocalDateTime fechaEntrega) {
 		this.fechaEntrega = fechaEntrega;
 	}
 
@@ -97,12 +81,27 @@ public class PedidoEntity implements Serializable{
 		this.estado = estado;
 	}
 
-	public double getPrecioFinal() {
-		return precioFinal;
+	public BigDecimal getTotal() {
+		return total;
 	}
 
-	public void setPrecioFinal(double precioFinal) {
-		this.precioFinal = precioFinal;
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
+
+	public Set<PedidoProductoEntity> getPedidoProductos() {
+		return pedidoProductos;
+	}
+
+	public void setPedidoProductos(Set<PedidoProductoEntity> pedidoProductos) {
+		this.pedidoProductos = pedidoProductos;
+	}
+
+	@Override
+	public String toString() {
+		return "PedidoEntity [idPedido=" + idPedido + ", cliente=" + cliente + ", fechaPedido=" + fechaPedido
+				+ ", fechaEntrega=" + fechaEntrega + ", estado=" + estado + ", total=" + total + ", pedidoProductos="
+				+ pedidoProductos + "]";
 	}
 	
 }
