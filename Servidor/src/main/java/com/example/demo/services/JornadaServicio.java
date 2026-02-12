@@ -7,6 +7,7 @@ import com.example.demo.Model.JornadaAdminDTO;
 import com.example.demo.Model.JornadaEmpleadoDTO;
 import com.example.demo.Model.JornadaFinDTO;
 import com.example.demo.Model.JornadaInicioDTO;
+import com.example.demo.Model.RegistroJornadaDTO;
 
 public interface JornadaServicio {
 	
@@ -19,4 +20,7 @@ public interface JornadaServicio {
     List<JornadaAdminDTO> obtenerTodasJornadasAdmin();
 
 	JornadaEntity obtenerJornadaAbierta(String usuario);
+	
+	List<RegistroJornadaDTO> obtenerRegistros();
+
 }

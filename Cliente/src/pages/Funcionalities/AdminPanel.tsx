@@ -10,6 +10,7 @@ function AdminPanel() {
                 <Link to="inventario">Inventario</Link>
                 <Link to="usuarios">Administrar Usuarios</Link>
                 <Link to="verPedidos">Ver Pedidos</Link>
+                <Link to="registros">Ver Registros</Link>
             </nav>
 
             <section className="contenido">
@@ -20,4 +21,3 @@ function AdminPanel() {
 }
 
 export default AdminPanel;
-
