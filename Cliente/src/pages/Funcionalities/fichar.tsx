@@ -38,10 +38,19 @@ function Fichar() {
             });
     }, [usuario]);
 
+    const obtenerHoraActual = (): string => {
+        const ahora = new Date();
+        const horas = String(ahora.getHours()).padStart(2, "0");
+        const minutos = String(ahora.getMinutes()).padStart(2, "0");
+        const segundos = String(ahora.getSeconds()).padStart(2, "0");
+
+        return `${horas}:${minutos}:${segundos}`;
+    };
+
     const iniciarJornada = () => {
         if (!usuario) return;
 
-        const ahora = new Date().toLocaleTimeString("es-ES", { hour12: false });
+        const ahora = obtenerHoraActual();
         setInicioActual(ahora);
 
         fetch("/api/jornadas/inicio", {
@@ -55,6 +64,7 @@ function Fichar() {
         .then(res => {
             if (!res.ok) throw new Error();
         })
+        
         .catch(() => {
             setError("No se pudo iniciar la jornada");
             setInicioActual(null);
@@ -64,7 +74,7 @@ function Fichar() {
     const finalizarJornada = () => {
         if (!inicioActual || !usuario) return;
 
-        const ahora = new Date().toLocaleTimeString("es-ES", { hour12: false });
+        const ahora = obtenerHoraActual();
 
         fetch("/api/jornadas/fin", {
             method: "PUT",
