@@ -20,5 +20,5 @@ jobs:
 
 
       - name: Run tests
-        working-directory: /Servidor
+        working-directory: Trasversal/Servidor
         run: mvn test
