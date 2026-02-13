@@ -6,6 +6,8 @@ function VerPedidos() {
 
     const [pedidos, setPedidos] = useState<Pedido[]>([]);
     const [cargando, setCargando] = useState(true);
+    const rol = localStorage.getItem("rol");
+    const esAdmin = rol === "ADMIN";
 
     const cargarPedidos = async () => {
         try {
@@ -37,10 +39,10 @@ function VerPedidos() {
     return (
         <main>
             <h2>Pedidos del mes</h2>
-
+            {esAdmin && (
             <div style={{ marginBottom: "20px" }}>
                 <BeneficiosStats />
-            </div>
+            </div>)}
 
             {pedidos.length === 0 && <p>No hay pedidos este mes</p>}
 
@@ -62,7 +64,7 @@ function VerPedidos() {
                         <strong>Estado:</strong> {p.estado}
                     </p>
 
-                    {p.estado === "EN_PROCESO" && (
+                    {p.estado === "PENDIENTE" && (
                         <button onClick={() => marcarEntregado(p.idPedido)}>
                             Marcar como entregado
                         </button>
