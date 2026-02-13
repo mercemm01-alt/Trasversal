@@ -75,8 +75,9 @@ public class ProductoServicioImplementacion implements ProductoServicio {
 
         if (imagen != null) {
             producto.setImagen(imagen.getOriginalFilename());
-            Path ruta = Paths.get("src/main/resources/static/img/" + imagen.getOriginalFilename());
-            Files.write(ruta, imagen.getBytes());
+ //           Path ruta = Paths.get("src/main/resources/static/img/" + imagen.getOriginalFilename());
+            String uploadDir = System.getProperty("user.dir") + "/uploads/img/";
+            Files.write(Paths.get(uploadDir + imagen.getOriginalFilename()), imagen.getBytes());
         }
 
         productoRepository.save(producto);
