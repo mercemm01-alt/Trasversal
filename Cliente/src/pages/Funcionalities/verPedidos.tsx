@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Pedido } from "../../types/Pedido";
 import BeneficiosStats from "./BeneficiosStats";
+import "./CSS/VerPedidos.css";
 
 function VerPedidos() {
 
@@ -37,7 +38,7 @@ function VerPedidos() {
     }
 
     return (
-        <main>
+        <main className="ver-pedidos">
             <h2>Pedidos del mes</h2>
             {esAdmin && (
             <div style={{ marginBottom: "20px" }}>
@@ -47,7 +48,7 @@ function VerPedidos() {
             {pedidos.length === 0 && <p>No hay pedidos este mes</p>}
 
             {pedidos.map(p => (
-                <div key={p.idPedido} style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "10px" }}>
+                <div key={p.idPedido} className="pedido-card">
                     <p>
                         <strong>Cliente:</strong> {p.nombreCliente} {p.apellidosCliente}
                     </p>
