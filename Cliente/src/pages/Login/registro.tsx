@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
+import "./login.css";
 
 function Registro() {
 
@@ -20,8 +20,8 @@ function Registro() {
 
         if (contrasena !== confirmarContrasena) {
             setError("Las contraseñas no coinciden");
-        return;
-}
+            return;
+        }
 
         fetch("/api/clientes/registro", {
             method: "POST",
@@ -37,22 +37,22 @@ function Registro() {
                 numTlf: telefono
             })
         })
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("No se pudo completar el registro");
-            }
-            return res.json();
-        })
-        .then(user => {
-            localStorage.setItem("usuario", user.usuario);
-            localStorage.setItem("rol", user.rol);
-            localStorage.setItem("idUsuario", user.idUsuarios);
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("No se pudo completar el registro");
+                }
+                return res.json();
+            })
+            .then(user => {
+                localStorage.setItem("usuario", user.usuario);
+                localStorage.setItem("rol", user.rol);
+                localStorage.setItem("idUsuario", user.idUsuarios);
 
-            navigate("/inicio");
-        })
-        .catch(err => {
-            setError(err.message);
-        });
+                navigate("/inicio");
+            })
+            .catch(err => {
+                setError(err.message);
+            });
     };
 
     return (

@@ -1,23 +1,118 @@
-.login{
-    padding: 1rem;
+/* 1. Todo en medio con el fondo crema*/
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
+    background-color: var(--cl-fondo, #f1f0eb); 
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+/* 2. Tarjeta blanca flotante (Sirve para login y registro) */
+.login, .registro {
+    background-color: var(--cl-blanco, #ffffff);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+/* Títulos */
+.login h3, .registro h3 {
+    color: var(--cl-negro, #000000);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* 3. Estructura del formulario */
 form {
-  display: flex;
-  flex-direction: column; 
-  gap: 12px;              
-  width: 300px;           
+    display: flex;
+    flex-direction: column; 
+    gap: 15px;
+    width: 100%;           
+    text-align: left; 
 }
 
 form label {
-  font-weight: 500;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #444;
+    margin-bottom: -8px;
 }
 
+/* 4. Inputs */
 form input {
-  padding: 8px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
 }
 
+/* Efecto al hacer clic en la caja de texto */
+form input:focus {
+    outline: none;
+    border-color: var(--cl-rosaH, #bb5c6a);
+    box-shadow: 0 0 0 3px rgba(187, 92, 106, 0.2);
+    background-color: var(--cl-blanco, #ffffff);
+}
+
+/* 5. Mensajes de error en rojo */
+.error {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    text-align: center;
+    border: 1px solid #ef9a9a;
+    margin-top: 5px;
+}
+
+/* 6. Botón principal */
 form button {
-  margin-top: 10px;
-  padding: 10px;
-  cursor: pointer;
+    margin-top: 15px;
+    padding: 14px;
+    background-color: var(--cl-rosaH, #bb5c6a);
+    color: var(--cl-blanco, #ffffff);
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+form button:hover {
+    background-color: #a34c5a; 
+}
+
+form button:active {
+    transform: scale(0.98); 
+}
+
+/* 7. Textos y enlaces del final */
+.registro-link, .volver-login {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: #666;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.registro-link a, .volver-login a {
+    color: var(--cl-rosaH, #bb5c6a);
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.registro-link a:hover, .volver-login a:hover {
+    color: #a34c5a;
+    text-decoration: underline;
 }
