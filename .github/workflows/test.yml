@@ -1,0 +1,24 @@
+name: Testing
+
+on:
+  pull_request
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+
+
+      - name: Run tests
+        working-directory: Servidor
+        run: mvn test
