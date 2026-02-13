@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Pedido } from "../../types/Pedido";
+import BeneficiosStats from "./BeneficiosStats";
 
 function VerPedidos() {
 
@@ -36,6 +37,10 @@ function VerPedidos() {
     return (
         <main>
             <h2>Pedidos del mes</h2>
+
+            <div style={{ marginBottom: "20px" }}>
+                <BeneficiosStats />
+            </div>
 
             {pedidos.length === 0 && <p>No hay pedidos este mes</p>}
 

@@ -1,0 +1,38 @@
+.stats-card {
+    padding: 15px;
+    border: 2px solid black;
+    margin-bottom: 20px;
+}
+
+.stats-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.badge {
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 2px 5px;
+}
+
+.money-display {
+    font-size: 2em;
+    margin: 10px 0;
+}
+
+.stats-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.stats-actions button {
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid black;
+    background: none;
+}
+
+.stats-actions button.active {
+    background-color: black;
+    color: white;
+}
