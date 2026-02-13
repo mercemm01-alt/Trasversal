@@ -1,0 +1,109 @@
+/* --- CONTENEDOR PRINCIPAL --- */
+.footer {
+    background-color: #222222;
+    /* Gris muy oscuro (casi negro) */
+    color: #ffffff;
+    padding: 50px 0 20px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: auto;
+    /* Empuja el footer al fondo si hay poco contenido */
+    border-top: 4px solid #d4af37;
+}
+
+/* --- ESTRUCTURA DE COLUMNAS --- */
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    /* Espacio entre columnas */
+    flex-wrap: wrap;
+    /* Importante: Si la pantalla es pequeña, las columnas bajan */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- CADA COLUMNA INDIVIDUAL --- */
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    /* Ancho mínimo para que no se aplasten en móvil */
+    margin-bottom: 30px;
+    padding: 0 15px;
+}
+
+/* --- TÍTULOS DE SECCIÓN --- */
+.footer-section h3 {
+    color: #d4af37;
+    /* COLOR DORADO */
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* --- TEXTO NORMAL --- */
+.footer-section p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #cccccc;
+    /* Un gris clarito se lee mejor que el blanco puro */
+    margin-bottom: 10px;
+}
+
+/* --- LISTA DE ENLACES --- */
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.3s ease;
+    /* Suaviza el cambio de color */
+}
+
+/* Efecto al pasar el ratón por los enlaces */
+.footer-links a:hover {
+    color: #d4af37;
+    padding-left: 8px;
+    /* Pequeño desplazamiento a la derecha */
+}
+
+/* --- BARRA INFERIOR (COPYRIGHT) --- */
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+    /* Línea separadora sutil */
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* --- ICONOS SOCIALES (Estilo botón) --- */
+.social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #222;
+    background-color: #fff;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 50%;
+    /* Círculo perfecto */
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.social-icons a:hover {
+    background-color: #d4af37;
+    /* Se vuelve dorado al pasar el ratón */
+}

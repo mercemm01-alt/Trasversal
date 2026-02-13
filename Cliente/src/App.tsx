@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Inicio from "./pages/Cliente/Inicio";
 import ListarProducto from "./pages/Cliente/listaProductos";
@@ -21,49 +21,50 @@ import VerPedidos from "./pages/Funcionalities/verPedidos"
 
 import './App.css'
 import RutasSeguras from "./componentes/Rutas/rutas";
-
+import Footer from "./componentes/footer/footer";
 
 function App() {
   return (
     <Router>
-    <Header />
-    
-    <Routes>
-      <Route path="/" element={<Inicio/>}></Route>
-      {/* Clientes */}
-      <Route path="/pasteleria" element={<ListarProducto url="/api/productos/pasteleria"/>}></Route> {/* Pasteleria */}
-      <Route path="/panaderia" element={<ListarProducto url="/api/productos/panaderia"/>}></Route> {/* Panaderia */}
-      <Route path="/carrito" element={
-        <RutasSeguras rolPermitido="CLIENTE"><Carrito/></RutasSeguras>}></Route>
+      <Header />
 
-      {/* Login */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/registro" element={<Registro />} />
+      <Routes>
+        <Route path="/" element={<Inicio />}></Route>
+        {/* Clientes */}
+        <Route path="/pasteleria" element={<ListarProducto url="/api/productos/pasteleria" />}></Route> {/* Pasteleria */}
+        <Route path="/panaderia" element={<ListarProducto url="/api/productos/panaderia" />}></Route> {/* Panaderia */}
+        <Route path="/carrito" element={
+          <RutasSeguras rolPermitido="CLIENTE"><Carrito /></RutasSeguras>}></Route>
 
-      {/* Tipo Empleado */}
-      <Route path="/admin" element=
-        {<RutasSeguras rolPermitido="ADMIN"> <AdminPanel/> </RutasSeguras>}>
+        {/* Login */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Registro />} />
+
+        {/* Tipo Empleado */}
+        <Route path="/admin" element=
+          {<RutasSeguras rolPermitido="ADMIN"> <AdminPanel /> </RutasSeguras>}>
           <Route path="fichar" element={<Fichar />} />
           <Route path="inventario" element={<Inventario />} />
-          <Route path="inventario/nuevoIngrediente" element={<NuevoIngrediente/>}></Route>
+          <Route path="inventario/nuevoIngrediente" element={<NuevoIngrediente />}></Route>
           <Route path="editar" element={<EditarProductos />} />
-          <Route path="editar/nuevoProducto" element={<NuevoProducto/>}></Route>
+          <Route path="editar/nuevoProducto" element={<NuevoProducto />}></Route>
           <Route path="usuarios" element={<Usuarios />} />
-          <Route path="verPedidos" element={<VerPedidos/>}/>
+          <Route path="verPedidos" element={<VerPedidos />} />
           <Route path="registros" element={<VerRegistros />} />
-      </Route>
-      
-      <Route path="/emple" element=
-        {<RutasSeguras rolPermitido="EMPLEADO"> <EmplePanel/> </RutasSeguras>}>
+        </Route>
+
+        <Route path="/emple" element=
+          {<RutasSeguras rolPermitido="EMPLEADO"> <EmplePanel /> </RutasSeguras>}>
           <Route path="fichar" element={<Fichar />} />
           <Route path="inventario" element={<Inventario />} />
-          <Route path="inventario/nuevoIngrediente" element={<NuevoIngrediente/>}></Route>
+          <Route path="inventario/nuevoIngrediente" element={<NuevoIngrediente />}></Route>
           <Route path="editar" element={<EditarProductos />} />
-          <Route path="editar/nuevoProducto" element={<NuevoProducto/>}></Route>
-          <Route path="verPedidos" element={<VerPedidos/>}/>
-      </Route>
+          <Route path="editar/nuevoProducto" element={<NuevoProducto />}></Route>
+          <Route path="verPedidos" element={<VerPedidos />} />
+        </Route>
 
-    </Routes>
+      </Routes>
+      <Footer />
     </Router>
   );
 }
