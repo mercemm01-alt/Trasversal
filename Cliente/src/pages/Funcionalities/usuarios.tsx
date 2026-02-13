@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Empleado } from "../../types/Empleado";
+import "./CSS/usuarios.css";
 
 function AdministrarUsuarios() {
     const [empleados, setEmpleados] = useState<Empleado[]>([]);
@@ -16,12 +17,12 @@ function AdministrarUsuarios() {
     //carga empleados
     useEffect(() => {
         fetch("/api/empleados")
-        .then(res => {
-            if (!res.ok) throw new Error();
-            return res.json();
-        })
-        .then(data => setEmpleados(data))
-        .catch(() => setError("No se pudieron cargar los empleados"));
+            .then(res => {
+                if (!res.ok) throw new Error();
+                return res.json();
+            })
+            .then(data => setEmpleados(data))
+            .catch(() => setError("No se pudieron cargar los empleados"));
     }, []);
 
     //crea empleado
@@ -29,144 +30,146 @@ function AdministrarUsuarios() {
         e.preventDefault();
 
         fetch("/api/empleados", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            usuario,
-            nombre,
-            apellidos,
-            contrasena,
-            administrador: admin ? "S" : "N"
-        })
-        })
-        .then(res => {
-            if (!res.ok) throw new Error();
-
-            setEmpleados(prev => [
-            ...prev,
-            {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
                 usuario,
                 nombre,
                 apellidos,
+                contrasena,
                 administrador: admin ? "S" : "N"
-            }
-            ]);
-
-            // reset
-            setUsuario("");
-            setNombre("");
-            setApellidos("");
-            setContrasena("");
-            setAdmin(false);
-            setMostrarForm(false);
-            setError("");
+            })
         })
-        .catch(() => setError("No se pudo crear el empleado"));
+            .then(res => {
+                if (!res.ok) throw new Error();
+
+                setEmpleados(prev => [
+                    ...prev,
+                    {
+                        usuario,
+                        nombre,
+                        apellidos,
+                        administrador: admin ? "S" : "N"
+                    }
+                ]);
+
+                // reset
+                setUsuario("");
+                setNombre("");
+                setApellidos("");
+                setContrasena("");
+                setAdmin(false);
+                setMostrarForm(false);
+                setError("");
+            })
+            .catch(() => setError("No se pudo crear el empleado"));
     };
 
     // eliminar empleado
     const eliminarEmpleado = (usuario: string) => {
         fetch(`/api/empleados/${usuario}`, {
-        method: "DELETE"
+            method: "DELETE"
         })
-        .then(res => {
-            if (!res.ok) throw new Error();
-            setEmpleados(prev =>
-            prev.filter(e => e.usuario !== usuario)
-            );
-        })
-        .catch(() => setError("No se pudo eliminar el empleado"));
+            .then(res => {
+                if (!res.ok) throw new Error();
+                setEmpleados(prev =>
+                    prev.filter(e => e.usuario !== usuario)
+                );
+            })
+            .catch(() => setError("No se pudo eliminar el empleado"));
     };
 
     return (
         <main className="usuarios">
-        <h2>Administrar Usuarios</h2>
+            <h2>Administrar Usuarios</h2>
 
-        {error && <p className="error">{error}</p>}
+            {error && <p className="error">{error}</p>}
 
-        <button onClick={() => setMostrarForm(!mostrarForm)}>
-            {mostrarForm ? "Cancelar" : "+ Añadir empleado"}
-        </button>
+            <button className="btn-toggle" onClick={() => setMostrarForm(!mostrarForm)}>
+                {mostrarForm ? "Cancelar" : "+ Añadir empleado"}
+            </button>
 
-        {/* FORMULARIO */}
-        {mostrarForm && (
-            <form onSubmit={crearEmpleado} className="form-empleado">
-                <input
-                    type="text"
-                    placeholder="Usuario"
-                    value={usuario}
-                    onChange={e => setUsuario(e.target.value)}
-                    required
-                />
-
-                <input
-                    type="text"
-                    placeholder="Nombre"
-                    value={nombre}
-                    onChange={e => setNombre(e.target.value)}
-                    required
-                />
-
-                <input
-                    type="text"
-                    placeholder="Apellidos"
-                    value={apellidos}
-                    onChange={e => setApellidos(e.target.value)}
-                    required
-                />
-
-                <input
-                    type="password"
-                    placeholder="Contraseña"
-                    value={contrasena}
-                    onChange={e => setContrasena(e.target.value)}
-                    required
-                />
-
-                <label>
+            {/* FORMULARIO */}
+            {mostrarForm && (
+                <form onSubmit={crearEmpleado} className="form-empleado">
                     <input
-                    type="checkbox"
-                    checked={admin}
-                    onChange={e => setAdmin(e.target.checked)}
+                        type="text"
+                        placeholder="Usuario"
+                        value={usuario}
+                        onChange={e => setUsuario(e.target.value)}
+                        required
                     />
-                    Administrador
-                </label>
 
-                <button type="submit">Crear</button>
-            </form>
-        )}
+                    <input
+                        type="text"
+                        placeholder="Nombre"
+                        value={nombre}
+                        onChange={e => setNombre(e.target.value)}
+                        required
+                    />
 
-        {/* TABLA */}
-        <table>
-            <thead>
-            <tr>
-                <th>Usuario</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Admin</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
+                    <input
+                        type="text"
+                        placeholder="Apellidos"
+                        value={apellidos}
+                        onChange={e => setApellidos(e.target.value)}
+                        required
+                    />
 
-            <tbody>
-            {empleados.map(e => (
-                <tr key={e.usuario}>
-                <td>{e.usuario}</td>
-                <td>{e.nombre}</td>
-                <td>{e.apellidos}</td>
-                <td>{e.administrador === "S" ? "Sí" : "No"}</td>
-                <td>
-                    <button
-                    className="eliminar"
-                    onClick={() => eliminarEmpleado(e.usuario)}
-                    >
-                    Eliminar
-                    </button>
-                </td>
-                </tr>
-            ))}
-            </tbody>
-        </table>
+                    <input
+                        type="password"
+                        placeholder="Contraseña"
+                        value={contrasena}
+                        onChange={e => setContrasena(e.target.value)}
+                        required
+                    />
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={admin}
+                            onChange={e => setAdmin(e.target.checked)}
+                        />
+                        Administrador
+                    </label>
+
+                    <button type="submit">Crear</button>
+                </form>
+            )}
+
+            {/* TABLA */}
+            <div className="tabla-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Admin</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {empleados.map(e => (
+                            <tr key={e.usuario}>
+                                <td>{e.usuario}</td>
+                                <td>{e.nombre}</td>
+                                <td>{e.apellidos}</td>
+                                <td>{e.administrador === "S" ? "Sí" : "No"}</td>
+                                <td>
+                                    <button
+                                        className="eliminar"
+                                        onClick={() => eliminarEmpleado(e.usuario)}
+                                    >
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </main>
     );
 }
