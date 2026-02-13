@@ -12,6 +12,7 @@ import Header from "./componentes/header/header";
 import Fichar from "./pages/Funcionalities/fichar";
 import EditarProductos from "./pages/Funcionalities/editarProducto";
 import Inventario from "./pages/Funcionalities/inventario";
+import VerRegistros from "./pages/Funcionalities/VerRegistros";
 import Usuarios from "./pages/Funcionalities/usuarios";
 import NuevoProducto from "./pages/Funcionalities/nuevoProducto";
 import NuevoIngrediente from "./pages/Funcionalities/nuevoIngrediente";
@@ -47,6 +48,7 @@ function App() {
           <Route path="editar/nuevoProducto" element={<NuevoProducto/>}></Route>
           <Route path="usuarios" element={<Usuarios />} />
           <Route path="verPedidos" element={<VerPedidos/>}/>
+          <Route path="registros" element={<VerRegistros />} />
       </Route>
       
       <Route path="/emple" element=

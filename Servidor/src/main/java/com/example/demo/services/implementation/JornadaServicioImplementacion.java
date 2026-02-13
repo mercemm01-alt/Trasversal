@@ -15,6 +15,7 @@ import com.example.demo.Model.JornadaAdminDTO;
 import com.example.demo.Model.JornadaEmpleadoDTO;
 import com.example.demo.Model.JornadaFinDTO;
 import com.example.demo.Model.JornadaInicioDTO;
+import com.example.demo.Model.RegistroJornadaDTO;
 import com.example.demo.Repository.EmpleadoRepository;
 import com.example.demo.Repository.JornadaRepository;
 import com.example.demo.services.JornadaServicio;
@@ -130,6 +131,20 @@ public class JornadaServicioImplementacion implements JornadaServicio {
                 })
                 .toList();
 	}
+	
+	@Override
+	public List<RegistroJornadaDTO> obtenerRegistros() {
+
+	    return jornadaRepo.findAll().stream()
+	            .map(j -> new RegistroJornadaDTO(
+	                    j.getEmpleado().getNombre(),
+	                    j.getFecha(),
+	                    j.getHoraInicio(),
+	                    j.getHoraSalida()
+	            ))
+	            .toList();
+	}
+
 
     
 }
