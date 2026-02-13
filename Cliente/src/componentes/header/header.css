@@ -1,13 +1,23 @@
+:root{
+    --cl-negro: #000000;
+    --cl-blanco: #ffffff;
+    --cl-fondo: #f1f0eb;
+    --cl-rosaH: #bb5c6a;
+    --cl-azulH:rgb(236, 226, 219);
+}
+
 * {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .info {
     display: flex;
     align-items: center;
-    padding: 0.5rem 1.5rem;
-    background-color: #A8565C;
-    color: white;
+    padding: 0.9rem 1.5rem;
+    background-color: var(--cl-rosaH);
+    color: var(--cl-blanco);
 }
 
 /* IZQUIERDA */
@@ -24,7 +34,7 @@
 }
 
 .redes a {
-    color: white;
+    color: var(--cl-blanco);
     display: flex;
     align-items: center;
 }
@@ -44,7 +54,7 @@
 .logout {
     background: transparent;
     border: none;
-    color: white;
+    color: var(--cl-blanco);
     cursor: pointer;
 }
 
@@ -53,12 +63,13 @@
 .menu {
     display: flex;
     align-items: center;
-    background-color: rgb(126, 178, 251);
+    background-color: var(--cl-azulH);
     padding: 1rem 1.5rem;
 }
 
 .menu img {
     width: 100px;
+    display: block;
 }
 
 /* Links */
@@ -71,7 +82,7 @@
 
 .link-nav {
     text-decoration: none;
-    color: black;
+    color: var(--cl-negro);
     font-weight: 500;
     font-size: 1.1rem;
 }
