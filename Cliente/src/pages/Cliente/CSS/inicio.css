@@ -1,0 +1,200 @@
+:root{
+    --cl-negro: #000000;
+    --cl-blanco: #ffffff;
+    --cl-fondo: #f3f2ed;
+    --cl-rosaH: #bb5c6a;
+    --cl-header:rgb(236, 226, 219);
+    --cl-resenas: #f7f7f7;
+}
+
+body{
+    background-color: var(--cl-fondo);
+    margin: 0;
+    padding: 0;
+}
+
+.home {
+    width: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+    overflow-x: hidden;
+}
+
+.hero {
+    position: relative;
+    height: 70vh;
+    background-image: url("/img/hero.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero__overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45); /* oscurece la imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero__contenido {
+    text-align: right;
+    color: var(--cl-blanco);
+    max-width: 900px;
+    padding: 20px;
+}
+
+.hero__titulo {
+    font-size: 3rem;
+    margin-bottom: 30px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.hero__lineas {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.hero__texto {
+    font-size: 1.2rem;
+    border-bottom: 1px solid var(--cl-blanco); /* efecto línea del boceto */
+    padding-bottom: 5px;
+    width: fit-content;
+    align-self: flex-end;
+}
+
+/* TARJETA CENTRAL */
+
+.presentacion {
+    padding: 80px 10%;
+    background-color: var(--cl-fondo);
+    }
+
+.presentacion__card {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    background: var(--cl-blanco);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+}
+
+.presentacion__imagenes {
+    flex: 1;
+}
+
+.presentacion__img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.presentacion__texto {
+    flex: 1;
+}
+
+.presentacion__titulo {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.presentacion__titulo::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #c76b6b; /* color rosado del header */
+    margin-top: 10px;
+}
+
+.presentacion__descripcion {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* RESEÑAS */
+
+.resenas {
+    padding: 80px 10%;
+    background-color: white;
+    text-align: center;
+    }
+
+.resenas__titulo {
+    font-size: 2rem;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.resenas__titulo::after {
+    content: "";
+    width: 80px;
+    height: 3px;
+    background-color: #c76b6b;
+    display: block;
+    margin: 15px auto 0;
+}
+
+.resenas__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.resena {
+    background: var(--cl-resenas);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.resena:hover {
+    transform: translateY(-5px);
+}
+
+.resena__nombre {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.resena__estrellas {
+    color: #f5b301; /* amarillo google */
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.resena__texto {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+    .hero__titulo {
+        font-size: 2rem;
+    }
+
+    .presentacion__card {
+        flex-direction: column;
+        padding: 25px;
+    }
+
+    .presentacion__img {
+        height: 250px;
+    }
+
+    .hero__contenido {
+        text-align: center;
+    }
+
+    .hero__texto {
+        align-self: center;
+    }
+}

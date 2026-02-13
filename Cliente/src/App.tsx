@@ -1,5 +1,6 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
+import Inicio from "./pages/Cliente/Inicio";
 import ListarProducto from "./pages/Cliente/listaProductos";
 import Carrito from "./pages/Cliente/pageCarrito";
 
@@ -26,8 +27,9 @@ function App() {
   return (
     <Router>
     <Header />
-
+    
     <Routes>
+      <Route path="/" element={<Inicio/>}></Route>
       {/* Clientes */}
       <Route path="/pasteleria" element={<ListarProducto url="/api/productos/pasteleria"/>}></Route> {/* Pasteleria */}
       <Route path="/panaderia" element={<ListarProducto url="/api/productos/panaderia"/>}></Route> {/* Panaderia */}
