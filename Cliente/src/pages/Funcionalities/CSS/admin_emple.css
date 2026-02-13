@@ -1,25 +1,45 @@
 .panel {
-    padding: 1.5rem;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    padding: 2rem;
+    background-color: var(--cl-fondo, #f3f2ed);
+    min-height: 85vh;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .menu {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    background-color: rgba(236, 226, 219, 0.6);
+    padding: 1rem 2rem;
+    border-radius: 12px;
 }
 
 .menu a {
     text-decoration: none;
-    font-weight: 500;
-    color: black;
+    font-weight: 600;
+    color: var(--cl-negro, #000000);
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: var(--cl-blanco, #ffffff);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
 }
 
 .menu a:hover {
-    text-decoration: underline;
+    background-color: var(--cl-rosaH, #bb5c6a);
+    color: var(--cl-blanco, #ffffff);
+    transform: translateY(-2px);
 }
 
 .contenido {
-    background-color: white;
-    padding: 1rem;
-    min-height: 300px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
