@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import com.example.demo.Model.HacerPedidoDTO;
 import com.example.demo.Model.VerPedidoDTO;
 import com.example.demo.services.PedidoServicio;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Collections;
@@ -63,10 +65,10 @@ public class PedidoController {
                 return ResponseEntity.badRequest().body("Periodo no válido. Usa: dia, semana, mes");
         }
 
-        // Convertimos LocalDate a Date
-        Date fechaInicio = Date.from(inicio.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Date fechaFin = Date.from(fin.atTime(23, 59, 59).atZone(ZoneId.systemDefault()).toInstant());
-
+     // Usamos directamente LocalDateTime
+        LocalDateTime fechaInicio = inicio.atStartOfDay();
+        LocalDateTime fechaFin = fin.atTime(23, 59, 59);
+        
         // Consultamos al repositorio
         Double beneficios = pedidoRepository.obtenerBeneficios(fechaInicio, fechaFin);
         
