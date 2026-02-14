@@ -14,7 +14,7 @@ function VerRegistros() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5173/api/jornadas/registros")
+    fetch("/api/jornadas/registros")
       .then(res => {
         if (!res.ok) {
           throw new Error("Error al obtener registros");
