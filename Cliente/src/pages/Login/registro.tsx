@@ -48,7 +48,7 @@ function Registro() {
                 localStorage.setItem("rol", user.rol);
                 localStorage.setItem("idUsuario", user.idUsuarios);
 
-                navigate("/inicio");
+                navigate("/");
             })
             .catch(err => {
                 setError(err.message);
