@@ -126,7 +126,7 @@ function Fichar() {
     };
 
     return (
-        <main>
+        <main className="fichar">
             <h2>Fichar Jornada</h2>
 
             {error && <p className="error">{error}</p>}
