@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { Ingrediente } from "../../types/Ingrediente";
-
+import "./CSS/inventario.css";
 
 function Inventario() {
     const [ingredientes, setIngredientes] = useState<Ingrediente[]>([]);
@@ -61,7 +61,7 @@ function Inventario() {
     };
 
     return (
-        <main>
+        <main className="inventario">
             <h2>Inventario</h2>
 
             {error && <p className="error">{error}</p>}
@@ -92,7 +92,7 @@ function Inventario() {
                             <td>{ing.nombre}</td>
                             <td>{ing.alergeno}</td>
                             <td>{ing.stock}</td>
-                            <td>
+                            <td className="acciones">
                                 <button onClick={() => actualizarStock(ing, ing.stock + 1)}>+</button>
                                 <button
                                     onClick={() =>

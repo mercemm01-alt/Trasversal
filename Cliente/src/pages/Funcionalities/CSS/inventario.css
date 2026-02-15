@@ -1,0 +1,126 @@
+:root{
+    --cl-negro: #000000;
+    --cl-blanco: #ffffff;
+    --cl-fondo: #f3f2ed;
+    --cl-rosaH: #bb5c6a;
+    --cl-azulH:rgb(236, 226, 219);
+}
+
+.inventario {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background: var(--cl-blanco);
+    border-radius: 20px;
+    box-shadow: 0 6px 14px -6px rgba(0,0,0,0.18);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    height: fit-content;
+}
+
+.inventario h2 {
+    text-align: center;
+    color: var(--cl-negro);
+    margin-bottom: 25px;
+}
+
+.inventario .error {
+    background: #ffe6e6;
+    color: #a40000;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.crear-ingrediente {
+    display: inline-block;
+    background: var(--cl-rosaH);
+    color: var(--cl-blanco);
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transition: all 0.2s ease;
+}
+
+.crear-ingrediente:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.inventario table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.inventario thead {
+    background: var(--cl-negro);
+    color: var(--cl-blanco);
+}
+
+.inventario th,
+.inventario td {
+    padding: 12px 14px;
+    text-align: center;
+}
+
+.inventario tbody tr:nth-child(even) {
+    background: var(--cl-fondo);
+}
+
+.inventario tbody tr:hover {
+    background: rgba(0,0,0,0.04);
+}
+
+.inventario button {
+    padding: 6px 10px;
+    margin: 0 2px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.15s ease;
+}
+
+.inventario button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+.inventario button:nth-child(1) {
+    background: var(--cl-azulH);
+    color: var(--cl-negro);
+}
+
+.inventario button:nth-child(2) {
+    background: var(--cl-rosaH);
+    color: var(--cl-blanco);
+}
+
+.inventario button:nth-child(3) {
+    background: #eee;
+    color: #a40000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inventario button svg {
+    pointer-events: none;
+}
+
+.inventario tbody td[colspan="4"] {
+    padding: 20px;
+    font-style: italic;
+    color: #555;
+}
+
+.inventario td.acciones {
+    display: flex;
+    justify-content: center; /* centra los botones horizontalmente */
+    gap: 10px; /* espacio entre botones */
+}
+
