@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import TarjetaProducto from "../../componentes/tarjetaProducto/tarjetaProducto";
 import type { Producto } from "../../types/Producto";
+import "./CSS/listaProductos.css";
 
 function ListarProducto({url}: { url: string }) {
     const [productos, setProductos] = useState<Producto[]>([]);
