@@ -56,7 +56,7 @@ function Registro() {
     };
 
     return (
-        <main>
+        <main className="main">
             <div className="registro">
                 <h3>Registro de Cliente</h3>
 
