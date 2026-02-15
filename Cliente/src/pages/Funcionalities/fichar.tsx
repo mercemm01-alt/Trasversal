@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import type { TramoJornada } from "../../types/Jornada";
+import "./CSS/fichar.css";
 
 function Fichar() {
 
