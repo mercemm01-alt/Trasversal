@@ -49,7 +49,7 @@ function Login() {
     };
 
     return (
-        <main>
+        <main className="main">
         <div className="login">
             <h3>Iniciar Sesión</h3>
 

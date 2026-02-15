@@ -1,5 +1,5 @@
 /* 1. Todo en medio con el fondo crema*/
-main {
+.main {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,7 +29,8 @@ main {
 }
 
 /* 3. Estructura del formulario */
-form {
+.login form,
+.registro form {
     display: flex;
     flex-direction: column; 
     gap: 15px;
@@ -37,7 +38,8 @@ form {
     text-align: left; 
 }
 
-form label {
+.login label,
+.registro label  {
     font-weight: 600;
     font-size: 0.95rem;
     color: #444;
@@ -45,7 +47,8 @@ form label {
 }
 
 /* 4. Inputs */
-form input {
+.login form input,
+.registro form input {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -55,7 +58,8 @@ form input {
 }
 
 /* Efecto al hacer clic en la caja de texto */
-form input:focus {
+.login form input:focus 
+.registro form input:focus{
     outline: none;
     border-color: var(--cl-rosaH, #bb5c6a);
     box-shadow: 0 0 0 3px rgba(187, 92, 106, 0.2);
@@ -75,7 +79,8 @@ form input:focus {
 }
 
 /* 6. Botón principal */
-form button {
+.login form button,
+.registro form button {
     margin-top: 15px;
     padding: 14px;
     background-color: var(--cl-rosaH, #bb5c6a);
@@ -88,11 +93,13 @@ form button {
     transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
-form button:hover {
+.login form button:hover,
+.registro form button:hover {
     background-color: #a34c5a; 
 }
 
-form button:active {
+.login form button:active,
+.registro form button:active {
     transform: scale(0.98); 
 }
 

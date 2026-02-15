@@ -87,37 +87,39 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
-table {
+.tabla-container table {
     width: 100%;
     border-collapse: collapse;
     min-width: 600px;
 }
 
-thead {
+.tabla-container thead {
     background-color: var(--cl-rosaH, #bb5c6a);
     color: white;
 }
 
-th,
-td {
+.tabla-container td {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #eee;
 }
 
-th {
+.tabla-container th {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
     font-weight: 600;
     text-transform: uppercase;
     font-size: 0.85rem;
     letter-spacing: 0.5px;
 }
 
-tr:hover {
+.tabla-container tr:hover {
     background-color: #fcfcfc;
 }
 
 /* Botón de eliminar */
-button.eliminar {
+.tabla-container button.eliminar {
     background-color: #e57373;
     color: white;
     border: none;
@@ -128,6 +130,6 @@ button.eliminar {
     transition: background 0.2s;
 }
 
-button.eliminar:hover {
+.tabla-container button.eliminar:hover {
     background-color: #d32f2f;
 }

@@ -3,7 +3,7 @@
     --cl-blanco: #ffffff;
     --cl-fondo: #f1f0eb;
     --cl-rosaH: #bb5c6a;
-    --cl-azulH:rgb(236, 226, 219);
+    --cl-beige:rgb(236, 226, 219);
 }
 
 * {
@@ -63,7 +63,7 @@
 .menu {
     display: flex;
     align-items: center;
-    background-color: var(--cl-azulH);
+    background-color: var(--cl-beige);
     padding: 1rem 1.5rem;
 }
 
@@ -78,6 +78,7 @@
     align-items: center;
     gap: 1rem;
     margin-left: auto;
+    
 }
 
 .link-nav {
@@ -85,4 +86,25 @@
     color: var(--cl-negro);
     font-weight: 500;
     font-size: 1.1rem;
+    background: transparent;      /* sin fondo */
+    border: none;                 /* sin borde */
+    padding: 0.3rem 0;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Línea rosa al pasar el ratón */
+.link-nav::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background-color: var(--cl-rosaH);
+    transition: width 0.3s ease;
+}
+
+.link-nav:hover::after {
+    width: 100%;
 }

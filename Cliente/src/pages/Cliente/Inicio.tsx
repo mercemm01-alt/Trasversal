@@ -1,44 +1,25 @@
 import "./CSS/inicio.css";
-
-import { useEffect, useState } from "react";
+import imgFachada from "../../assets/img/fachada.jpg";
+import imgVitrina from "../../assets/img/vitrina.jpg";
 
 function Home() {
 
-    // Carrusel automático
-    const imagenes = [
-    "/img/pasteleria1.jpg",
-    "/img/pasteleria2.jpg",
-    "/img/pasteleria3.jpg"
-    ];
-
-    const [index, setIndex] = useState(0);
-
-    useEffect(() => {
-        const intervalo = setInterval(() => {
-        setIndex((prev) => (prev + 1) % imagenes.length);
-        }, 4000);
-
-        return () => clearInterval(intervalo);
-    }, []);
 
     return (
         <main className="home">
 
         {/* HERO - Imagen fondo + texto superpuesto */}
-        <section className="hero">
+        <section className="hero" style={{ backgroundImage: `url(${imgFachada})` }}>
 
             <div className="hero__overlay">
             <div className="hero__contenido">
 
                 <h1 className="hero__titulo">
-                Endulzamos tus momentos especiales
+                PASTELERÍA Y PANADERÍA LAMA 
                 </h1>
 
-                <div className="hero__lineas">
-                <p className="hero__texto">Pastelería artesanal</p>
-                <p className="hero__texto">Ingredientes naturales</p>
-                <p className="hero__texto">Pan recién hecho cada día</p>
-                <p className="hero__texto">Encargos personalizados</p>
+                <div className="hero__subtitulo">
+                    <h2>Tradición y Calidad desde 1984</h2>
                 </div>
 
             </div>
@@ -46,15 +27,13 @@ function Home() {
 
         </section>
 
-
-        {/* TARJETA CON CARRUSEL */}
         <section className="presentacion">
 
             <div className="presentacion__card">
 
             <div className="presentacion__imagenes">
                 <img
-                src={imagenes[index]}
+                src={imgVitrina}
                 alt="Productos pastelería"
                 className="presentacion__img"
                 />
@@ -66,15 +45,16 @@ function Home() {
                 </h2>
 
                 <p className="presentacion__descripcion">
-                En LAMA Pastelería y Panadería elaboramos cada producto
-                con pasión y dedicación. Nuestra tradición artesanal
-                combinada con ingredientes de primera calidad garantiza
-                sabores únicos.
+                Desde 1984, en Pastelería y Panadería Lama creamos dulces que despiertan emociones. 
+                Cada uno de nuestros productos es elaborado en nuestro obrador con recetas que han
+                pasado de generación en generación, combinando lo mejor de la tradición con un toque 
+                innovador.
                 </p>
 
                 <p className="presentacion__descripcion">
-                Tartas personalizadas, bollería recién hecha y pan
-                artesanal cada mañana.
+                Elaboramos cada día productos frescos con ingredientes de primera calidad. 
+                Desde tartas personalizadas hasta pan artesanal, combinamos tradición e innovación 
+                para ofrecerte el mejor sabor.
                 </p>
 
             </div>
