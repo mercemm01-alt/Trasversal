@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./CSS/VerRegistros.css";
 
 interface Registro {
   nombreEmpleado: string;
@@ -14,7 +15,7 @@ function VerRegistros() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5173/api/jornadas/registros")
+    fetch("/api/jornadas/registros")
       .then(res => {
         if (!res.ok) {
           throw new Error("Error al obtener registros");
@@ -29,6 +30,7 @@ function VerRegistros() {
   }, []);
 
   return (
+    <main className="registros">
     <div style={{ padding: "20px" }}>
       <h2>Registro de Jornadas</h2>
 
@@ -57,6 +59,7 @@ function VerRegistros() {
         </tbody>
       </table>
     </div>
+    </main>
   );
 }
 
