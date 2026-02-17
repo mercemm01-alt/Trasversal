@@ -40,7 +40,7 @@ function Login() {
             } else if(user.rol === "EMPLEADO"){
                 rutas("/emple");
             } else{
-                rutas("/cliente");
+                rutas("/");
             }
         })
         .catch(error => {

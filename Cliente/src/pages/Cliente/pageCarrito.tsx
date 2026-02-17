@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useCarrito } from "../../pages/Funcionalities/carritoCompra";
 import jsPDF from "jspdf";
+import "./CSS/carrito.css";
 
 function Carrito() {
     const { carrito, eliminarProducto, vaciarCarrito } = useCarrito();
@@ -73,18 +74,18 @@ function Carrito() {
     };
 
     return (
-        <main>
+        <main className="mainCarrito">
             <h2>Carrito</h2>
 
             {carrito.length === 0 && <p>El carrito está vacío</p>}
 
             {carrito.map(p => (
-                <div key={p.id}>
+                <div key={p.id} className="productos">
                     <span>
-                        {p.nombre} x Cantidad:{p.cantidad}
+                        {p.nombre} x {p.cantidad}
                     </span>
-                    <span> Precio:{p.precio * p.cantidad} €</span>
-                    <button onClick={() => eliminarProducto(p.id)}>
+                    <span> Precio: {p.precio * p.cantidad} €</span>
+                    <button onClick={() => eliminarProducto(p.id)} className="bt-elim">
                         Eliminar
                     </button>
                 </div>
@@ -92,17 +93,20 @@ function Carrito() {
 
             {carrito.length > 0 && (
                 <>
-                    <h3>Total: {total} €</h3>
-
-                    <label>Fecha de recogida:</label>
+                <div  className="contenedor-fecha">
+                    <label className="fecha">Fecha de recogida:</label>
                     <input
+                    className="elegir-fehca"
                         type="date"
                         min={minDate()}
                         value={fechaEntrega}
                         onChange={e => setFechaEntrega(e.target.value)}
                     />
+                </div>
+                
 
-                    <button onClick={realizarPedido}>Comprar</button>
+                    <h3 className="total">Total: {total} €</h3>
+                    <button onClick={realizarPedido} className="bt-comprar">Comprar</button>
                 </>
             )}
         </main>
