@@ -4,7 +4,7 @@
     --cl-fondo: #f3f2ed;
     --cl-rosaH: #bb5c6a;
     --cl-header:rgb(236, 226, 219);
-    --cl-resenas: #f7f7f7;
+    --cl-resena: #e7e5e1;
 }
 
 body{
@@ -18,44 +18,58 @@ body{
     font-family: 'Segoe UI', sans-serif;
     color: #333;
     overflow-x: hidden;
+    display: flex;      
+    flex-direction: column;  
 }
 
 .hero {
+    width: 100%;
+    height: 70vh;
     position: relative;
     height: 70vh;
-    background-image: url("/img/hero.jpg");
+    
     background-size: cover;
-    background-position: center;
+    background-position: center 25%;
     background-repeat: no-repeat;
 }
 
 .hero__overlay {
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.45); /* oscurece la imagen */
+    background: rgba(0, 0, 0, 0.58); /* oscurece la imagen */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .hero__contenido {
-    text-align: right;
+    width: 100%;
+    padding: 0 70px;
+    
+
+    text-align: left;
     color: var(--cl-blanco);
-    max-width: 900px;
-    padding: 20px;
 }
 
 .hero__titulo {
-    font-size: 3rem;
-    margin-bottom: 30px;
-    font-weight: 600;
-    letter-spacing: 2px;
+    margin-bottom: 90px;
+    font-family: 'Cinzel', serif;
+    font-size: 65px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #FFD52F;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
 }
-
-.hero__lineas {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.hero__subtitulo {
+    text-align: right;
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: white;
+    margin-top: 20px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
 }
 
 .hero__texto {
@@ -69,18 +83,21 @@ body{
 /* TARJETA CENTRAL */
 
 .presentacion {
-    padding: 80px 10%;
+    width: 100%;
+    padding: 100px 0;
+    
     background-color: var(--cl-fondo);
     }
 
 .presentacion__card {
+    width: 100%;
+
     display: flex;
     gap: 40px;
     align-items: center;
     background: var(--cl-blanco);
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 40px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    padding: 50px;
 }
 
 .presentacion__imagenes {
@@ -88,10 +105,9 @@ body{
 }
 
 .presentacion__img {
-    width: 100%;
-    height: 350px;
+    width: 600px;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 12px;
 }
 
 .presentacion__texto {
@@ -109,7 +125,7 @@ body{
     display: block;
     width: 60px;
     height: 3px;
-    background-color: #c76b6b; /* color rosado del header */
+    background-color: var(--cl-rosaH); /* color rosado del header */
     margin-top: 10px;
 }
 
@@ -122,42 +138,50 @@ body{
 /* RESEÑAS */
 
 .resenas {
-    padding: 80px 10%;
-    background-color: white;
-    text-align: center;
+    width: 100%;
+    padding: 100px 20px;
+    background-color: var(--cl-blanco);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     }
 
 .resenas__titulo {
     font-size: 2rem;
-    margin-bottom: 50px;
-    position: relative;
+    margin-bottom: 60px;
+    text-align: center;
 }
 
 .resenas__titulo::after {
     content: "";
     width: 80px;
     height: 3px;
-    background-color: #c76b6b;
+    background-color: var(--cl-rosaH);
     display: block;
     margin: 15px auto 0;
 }
 
 .resenas__grid {
+    width: 100%;
+    max-width: 1200px;
+
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
 }
 
 .resena {
-    background: var(--cl-resenas);
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    background: var(--cl-resena);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
 .resena:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
 }
 
 .resena__nombre {
@@ -172,29 +196,36 @@ body{
 }
 
 .resena__texto {
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.5;
 }
 
 @media (max-width: 900px) {
-    .hero__titulo {
-        font-size: 2rem;
-    }
-
-    .presentacion__card {
-        flex-direction: column;
-        padding: 25px;
-    }
-
-    .presentacion__img {
-        height: 250px;
-    }
-
     .hero__contenido {
         text-align: center;
     }
 
     .hero__texto {
         align-self: center;
+    }
+
+    .presentacion__card {
+        flex-direction: column;
+        padding: 30px;
+    }
+
+    .presentacion__img {
+        height: 250px;
+    }
+
+    .hero__titulo {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    .hero__titulo {
+        white-space: normal;
+        font-size: 40px;
     }
 }

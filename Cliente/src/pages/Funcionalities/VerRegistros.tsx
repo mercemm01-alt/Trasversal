@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./CSS/VerRegistros.css";
 
 interface Registro {
   nombreEmpleado: string;
@@ -29,6 +30,7 @@ function VerRegistros() {
   }, []);
 
   return (
+    <main className="registros">
     <div style={{ padding: "20px" }}>
       <h2>Registro de Jornadas</h2>
 
@@ -57,6 +59,7 @@ function VerRegistros() {
         </tbody>
       </table>
     </div>
+    </main>
   );
 }
 

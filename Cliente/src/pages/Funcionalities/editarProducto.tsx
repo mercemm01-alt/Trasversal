@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { Producto } from "../../types/Producto";
+import "./CSS/editarProducto.css";
 
 interface Ingrediente {
     idIngrediente: number;

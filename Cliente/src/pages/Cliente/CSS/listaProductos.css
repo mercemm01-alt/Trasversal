@@ -1,0 +1,11 @@
+.productos {
+    width: 100%;
+    padding: 60px 20px;
+    background-color: #f3f2ed;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    align-items: center;
+}

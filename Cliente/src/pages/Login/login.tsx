@@ -40,7 +40,7 @@ function Login() {
             } else if(user.rol === "EMPLEADO"){
                 rutas("/emple");
             } else{
-                rutas("/cliente");
+                rutas("/");
             }
         })
         .catch(error => {
@@ -49,7 +49,7 @@ function Login() {
     };
 
     return (
-        <main>
+        <main className="main">
         <div className="login">
             <h3>Iniciar Sesión</h3>
 

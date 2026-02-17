@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import type { TramoJornada } from "../../types/Jornada";
+import "./CSS/fichar.css";
 
 function Fichar() {
 
@@ -125,7 +126,7 @@ function Fichar() {
     };
 
     return (
-        <main>
+        <main className="fichar">
             <h2>Fichar Jornada</h2>
 
             {error && <p className="error">{error}</p>}

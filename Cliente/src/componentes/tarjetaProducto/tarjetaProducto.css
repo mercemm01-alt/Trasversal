@@ -1,0 +1,122 @@
+/* TARJETA PRINCIPAL */
+.tj-producto {
+    width: 100%;
+    max-width: 1100px;
+
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+    gap: 40px;
+    padding: 30px;
+
+    transition: transform 0.3s ease;
+}
+
+.tj-producto:hover {
+    transform: translateY(-4px);
+}
+
+/* IMAGEN IZQUIERDA */
+.tj-producto img {
+    width: 320px;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+/* CONTENIDO DERECHO */
+.contenido-producto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centra verticalmente */
+}
+
+/* TÍTULO */
+.contenido-producto h3 {
+    font-size: 2.3rem;       /* más grande */
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: #1f1f1f;
+    letter-spacing: 0.5px;
+    font-family: 'Cinzel', serif;
+    border-bottom: 2px solid #bb5c6a;
+    display: inline-block;
+    padding-bottom: 6px;
+}
+
+/* DESCRIPCIÓN */
+.contenido-producto p {
+    font-size: 1.15rem;      /* más grande */
+    line-height: 1.8;        /* más aire */
+    color: #444;
+    margin-bottom: 12px;
+}
+
+/* ALÉRGENOS */
+.alergenos {
+    font-size: 1rem;
+    color: #777;
+    margin-top: 10px;
+}
+
+/* ACCIONES (PRECIO + BOTÓN) */
+.acciones {
+    display: flex;
+    justify-content: space-between; /* 🔥 separa izquierda y derecha */
+    align-items: center;            /* 🔥 misma altura */
+    margin-top: 25px;
+}
+
+/* PRECIO */
+.precio {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #bb5c6a;
+}
+
+/* BOTÓN */
+.acciones button {
+    padding: 10px 22px;
+    background-color: #bb5c6a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: auto;        /* 🔥 evita que ocupe todo el ancho */
+    flex: 0 0 auto;
+}
+
+.acciones button:hover {
+    background-color: #a34c5a;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+
+    .tj-producto {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .tj-producto img {
+        width: 100%;
+        height: 250px;
+    }
+
+    .contenido-producto {
+        align-items: center;
+    }
+
+    .acciones {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+    }
+}

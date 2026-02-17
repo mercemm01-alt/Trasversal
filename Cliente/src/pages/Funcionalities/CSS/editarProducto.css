@@ -1,0 +1,196 @@
+/* CONTENEDOR PRINCIPAL */
+.editar-productos {
+    width: 100%;
+    padding: 60px 20px;
+    background-color: #f3f2ed;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+}
+
+/* BOTÓN NUEVO PRODUCTO */
+.crear-producto {
+    padding: 12px 26px;
+    background-color: #bb5c6a;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.crear-producto:hover {
+    background-color: #a34c5a;
+    transform: translateY(-2px);
+}
+
+/* TARJETA DE PRODUCTO */
+.producto-editar {
+    width: 100%;
+    max-width: 1100px;
+
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+    gap: 40px;
+    padding: 30px;
+
+    transition: transform 0.3s ease;
+}
+
+.producto-editar:hover {
+    transform: translateY(-4px);
+}
+
+/* IMAGEN IZQUIERDA */
+.imagen-producto {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.imagen-producto img {
+    width: 320px;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* INPUT FILE */
+.imagen-producto input[type="file"] {
+    font-size: 0.9rem;
+}
+
+/* CONTENIDO DERECHO */
+.info-producto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* TÍTULOS */
+.info-producto h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #1f1f1f;
+    font-size: 1.2rem;
+    border-bottom: 2px solid #bb5c6a;
+    display: inline-block;
+    padding-bottom: 4px;
+}
+
+/* LABELS */
+.info-producto label {
+    font-weight: 600;
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+
+/* INPUTS Y TEXTAREA */
+.info-producto input[type="text"],
+.info-producto textarea,
+.info-producto select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.info-producto input:focus,
+.info-producto textarea:focus,
+.info-producto select:focus {
+    outline: none;
+    border-color: #bb5c6a;
+    box-shadow: 0 0 0 2px rgba(187, 92, 106, 0.2);
+}
+
+/* INGREDIENTES */
+.ingredientes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    margin-top: 10px;
+}
+
+.ingredientes label {
+    font-weight: normal;
+    font-size: 0.95rem;
+}
+
+/* ALÉRGENOS */
+.info-producto p {
+    font-size: 0.95rem;
+    color: #777;
+    margin-top: 5px;
+}
+
+/* ACCIONES */
+.acciones {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+/* BOTONES */
+.acciones button {
+    padding: 10px 22px;
+    background-color: #bb5c6a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.acciones button:hover {
+    background-color: #a34c5a;
+    transform: translateY(-2px);
+}
+
+/* BOTÓN ELIMINAR */
+.acciones .eliminar {
+    background-color: #888;
+}
+
+.acciones .eliminar:hover {
+    background-color: #666;
+}
+
+/* ERROR */
+.error {
+    color: red;
+    font-weight: 600;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+
+    .producto-editar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .imagen-producto img {
+        width: 100%;
+        height: 250px;
+    }
+
+    .info-producto {
+        align-items: center;
+    }
+
+    .acciones {
+        flex-direction: column;
+    }
+
+}

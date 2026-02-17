@@ -1,0 +1,137 @@
+/* CONTENEDOR PRINCIPAL */
+.mainCarrito {
+    width: 100%;
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 40px 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* TÍTULO */
+.mainCarrito h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    border-bottom: 3px solid #bb5c6a;
+    display: inline-block;
+    margin: 0 auto 20px auto;
+    padding-bottom: 6px;
+}
+
+/* PRODUCTO (fila tipo tabla) */
+.productos {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    align-items: center;
+
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+/* NOMBRE IZQUIERDA */
+.productos span:first-child {
+    text-align: left;
+    font-size: 1.05rem;
+    color: #222;
+}
+
+/* PRECIO CENTRO */
+.productos span:nth-child(2) {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+/* BOTÓN DERECHA */
+.bt-elim {
+    justify-self: end;
+
+    padding: 8px 20px;
+    background-color: #888;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.bt-elim:hover {
+    background-color: #666;
+}
+
+/* TOTAL */
+.total {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #000; /* negro como pediste */
+    margin-top: 20px;
+}
+
+/* FECHA */
+/* CONTENEDOR FECHA EN FILA */
+.contenedor-fecha {
+    display: flex;
+    justify-content: center;   /* centrado horizontal */
+    align-items: center;       /* alineado vertical */
+    gap: 15px;                 /* espacio entre label e input */
+    margin-top: 15px;
+}
+
+/* QUITAMOS centrado anterior */
+.fecha {
+    text-align: left;
+    margin-top: 0;
+}
+
+/* QUITAMOS display:block y margin auto */
+.elegir-fehca {
+    display: inline-block;
+    margin: 0;
+}
+
+/* BOTÓN COMPRAR CENTRADO */
+.bt-comprar {
+    display: block;
+    margin: 25px auto 0 auto;
+
+    padding: 12px 40px;
+    background-color: #bb5c6a;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.bt-comprar:hover {
+    background-color: #a34c5a;
+    transform: translateY(-2px);
+}
+
+/* MENSAJE CARRITO VACÍO */
+.mainCarrito p {
+    text-align: center;
+    color: #777;
+    font-size: 1.1rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+    .productos {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .bt-elim {
+        justify-self: center;
+    }
+}
