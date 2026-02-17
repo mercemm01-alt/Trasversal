@@ -80,7 +80,7 @@ function Carrito() {
             {carrito.length === 0 && <p>El carrito está vacío</p>}
 
             {carrito.map(p => (
-                <div key={p.id} className="productos">
+                <div key={p.id} className="productos-carrito">
                     <span>
                         {p.nombre} x {p.cantidad}
                     </span>

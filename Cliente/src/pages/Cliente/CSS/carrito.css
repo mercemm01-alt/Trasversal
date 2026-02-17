@@ -22,7 +22,7 @@
 }
 
 /* PRODUCTO (fila tipo tabla) */
-.productos {
+.productos-carrito {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr auto;
@@ -33,14 +33,14 @@
 }
 
 /* NOMBRE IZQUIERDA */
-.productos span:first-child {
+.productos-carrito span:first-child {
     text-align: left;
     font-size: 1.05rem;
     color: #222;
 }
 
 /* PRECIO CENTRO */
-.productos span:nth-child(2) {
+.productos-carrito span:nth-child(2) {
     text-align: center;
     font-weight: 600;
     font-size: 1.05rem;
@@ -125,7 +125,7 @@
 /* RESPONSIVE */
 @media (max-width: 768px) {
 
-    .productos {
+    .productos-carrito {
         grid-template-columns: 1fr;
         gap: 8px;
         text-align: center;

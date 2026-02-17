@@ -36,6 +36,8 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: admin
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+    volumes:
+      - ./Servidor/uploads:/app/uploads
     networks:
       - default
 

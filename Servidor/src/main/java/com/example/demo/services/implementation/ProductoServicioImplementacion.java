@@ -73,17 +73,26 @@ public class ProductoServicioImplementacion implements ProductoServicio {
         producto.setDescripcion(dto.getDescripcion());
         producto.setTipo(dto.getTipo());
 
-        if (imagen != null) {
+        if (imagen != null && !imagen.isEmpty()) {
+
+            String uploadDir = "/app/uploads/img/";
+            Files.createDirectories(Paths.get(uploadDir));
+
+            String filePath = uploadDir + imagen.getOriginalFilename();
+            Files.write(Paths.get(filePath), imagen.getBytes());
+
             producto.setImagen(imagen.getOriginalFilename());
- //           Path ruta = Paths.get("src/main/resources/static/img/" + imagen.getOriginalFilename());
-            String uploadDir = System.getProperty("user.dir") + "/uploads/img/";
-            Files.write(Paths.get(uploadDir + imagen.getOriginalFilename()), imagen.getBytes());
         }
 
         productoRepository.save(producto);
 
         guardarIngredienteProducto(producto, dto.getIngredientes());
     }
+    @Override
+        public void addResourceHandlers(ResourceHandlerRegistry registry) {
+            registry.addResourceHandler("/img/**")
+                    .addResourceLocations("file:/app/uploads/img/");
+        }
 
     /* =========================
        ACTUALIZAR PRODUCTO
