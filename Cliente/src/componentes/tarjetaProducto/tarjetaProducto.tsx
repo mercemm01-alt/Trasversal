@@ -1,6 +1,6 @@
 import type { Producto } from "../../types/Producto";
 import { useCarrito } from "../../pages/Funcionalities/carritoCompra";
-import "./TarjetaProducto.css";
+import "./tarjetaProducto.css";
 
 function TarjetaProducto({ producto }: { producto: Producto }) {
     const { agregarProducto } = useCarrito();
